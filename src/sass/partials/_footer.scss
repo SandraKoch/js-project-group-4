@@ -1,0 +1,32 @@
+.footer {
+  background-color: var(--color-gray-background-footer);
+  padding-block: 30px;
+  @media screen and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    @media screen and (min-width: 768px) {
+      margin-top: 0;
+    }
+  }
+  &__text {
+    font-size: var(--font-14);
+    text-align: center;
+    margin-block: 0px;
+    &--team {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+  &__icon {
+    fill: var(--color-orange);
+  }
+}
