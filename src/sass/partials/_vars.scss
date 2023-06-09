@@ -1,0 +1,15 @@
+.container {
+    max-width: 320px;
+    padding-inline: 1.25rem;
+    margin: 0 auto;
+    @include tablet{
+        min-width:768px;
+        @include desktop{
+            min-width: 1280;
+        }
+    }
+}
+a {
+    text-decoration: none;
+    color:white;
+}

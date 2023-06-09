@@ -4,8 +4,9 @@
  */
 
 // Style dla pliku z przykładem HTML fragmentu
-@import './example';
-@import './utils/body';
 @import './partials/mixin';
+@import './partials/header-main';
+@import './partials/vars';
+@import './partials/button';
+@import './partials/footer';
 @import './utils/root';
-@import './partials/main-section'
