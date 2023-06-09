@@ -119,6 +119,16 @@
   padding-inline: 1.25rem;
   margin: 0 auto;
 }
+@media screen and (min-width: 768px) {
+  .container {
+    min-width: 768px;
+  }
+}
+@media screen and (min-width: 768px) and (min-width: 1280px) {
+  .container {
+    min-width: 1280;
+  }
+}
 
 a {
   text-decoration: none;
