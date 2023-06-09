@@ -1,0 +1,33 @@
+.button {
+    border-radius: 5px;
+    border: 1px solid white;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1rem;
+    padding-top: 14px;
+    padding-bottom: 12px;
+    width: 130px;
+
+    &:hover,
+    &:focus {
+        background-color: #FF6B01;
+        border: 1px solid transparent;
+        box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
+        cursor: pointer;
+        color: white;
+    }
+
+    &--library {
+        background: transparent;
+        color: white;
+    }
+
+    &--active {
+        background-color: #FF6B01;
+        border: none;
+        box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
+        cursor: pointer;
+        color: white;
+    }
+}
