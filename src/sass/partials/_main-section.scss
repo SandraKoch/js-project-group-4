@@ -1,0 +1,70 @@
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  @include tablet {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 27px 32px 61px 32px;
+    gap: 32px;
+  }
+  @include desktop {
+    padding: 50px 32px 60px 32px;
+    gap: 10px;
+  }
+  &__list {
+    list-style: none;
+  }
+  &__list-item {
+    @include tablet {
+      padding: 0;
+    }
+    padding: 20px 20px 0px 20px;
+  }
+  &__movie {
+    @include desktop {
+      padding-bottom: 22px;
+    }
+  }
+  &__image {
+    @include tablet {
+      width: 336px;
+      height: 455px;
+    }
+    @include desktop {
+      width: 395px;
+      height: 574px;
+    }
+    width: 280px;
+    height: 402px;
+    border-radius: 5px;
+    display: block;
+    background-color: aqua;
+  }
+  &__caption {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__movie-name {
+    font-size: var(--font-12);
+    line-height: var(--line-height-large);
+    color: var(--color-black);
+    text-transform: uppercase;
+    @include desktop {
+        font-size:var(--font-20);
+        line-height: var(--line-height-medium);
+    }
+  }
+  &__movie-genres {
+    font-size: var(--font-12);
+    line-height: var(--line-height-small);
+    color: var(--color-orange);
+    @include tablet {
+        line-height: var(--line-height-large);
+    }
+    @include desktop {
+        font-size:var(--font-20);
+        line-height: var(--line-height-medium);
+    }
+  }
+}
