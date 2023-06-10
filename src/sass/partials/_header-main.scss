@@ -1,97 +1,133 @@
 .header {
+  width: 100%;
+  background-image: url(/src/images/header-background-primary-320.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-top: 40px;
+  padding-bottom: 44px;
+  color: white;
+  @media screen and (min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+    background-image: url(/src/images/header-background-primary-640.png);
+  }
+  @media screen and (min-width: 768px) {
+    background-image: url(/src/images/header-background-primary-768.png);
+  }
+  @media screen and (min-device-pixel-ratio: 2) and (min-width: 768px),
+    screen and (min-resolution: 192dpi) and (min-width: 768px),
+    screen and (min-resolution: 2dppx) and (min-width: 768px) {
+    background-image: url('/src/images/header-background-primary-1536.png');
+  }
+  @media screen and (min-width: 1280px) {
+    background-image: url('/src/images/header-background-primary-1280.png');
+  }
+  @media screen and (min-device-pixel-ratio: 2) and (min-width: 1280px),
+    screen and (min-resolution: 192dpi) and (min-width: 1280px),
+    screen and (min-resolution: 2dppx) and (min-width: 1280px) {
+    background-image: url('/src/images/header-background-primary-2560.png');
+  }
+  &__main {
+    margin-bottom: 54px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__name {
+    display: none;
+    font-size: 30px;
+
+    @include tablet {
+      display: block;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    gap: 40px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: white;
+  }
+
+  &__active {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: red;
+    }
+  }
+
+  &__form {
+    position: relative;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  &__input {
     width: 100%;
-    background-image: url('/src/images/header-main.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    padding-top: 40px;
-    padding-bottom: 44px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    padding: 0;
     color: white;
 
-    &__main {
-        margin-bottom: 54px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    &::placeholder {
+      color: white;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 0;
+    top: 0.2rem;
+  }
+
+  &--library {
+    background-image: url('/src/images/header-background-secondary-320.png');
+    // background-size: cover;
+    padding-bottom: 60px;
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: url(/src/images/header-background-secondary-640.png);
+    }
+    @media screen and (min-width: 768px) {
+      background-image: url(/src/images/header-background-secondary-768.png);
+    }
+    @media screen and (min-device-pixel-ratio: 2) and (min-width: 768px),
+      screen and (min-resolution: 192dpi) and (min-width: 768px),
+      screen and (min-resolution: 2dppx) and (min-width: 768px) {
+      background-image: url('/src/images/header-background-secondary-1536.png');
+    }
+    @media screen and (min-width: 1280px) {
+      background-image: url('/src/images/header-background-secondary-1280.png');
+    }
+    @media screen and (min-device-pixel-ratio: 2) and (min-width: 1280px),
+      screen and (min-resolution: 192dpi) and (min-width: 1280px),
+      screen and (min-resolution: 2dppx) and (min-width: 1280px) {
+      background-image: url('/src/images/header-background-secondary-2560.png');
     }
 
-    &__title {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+    &__buttons {
+      padding-top: 12px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
     }
-
-    &__name {
-        display: none;
-        font-size: 30px;
-
-        @include tablet {
-            display: block;
-        }
-    }
-    
-
-    &__nav {
-        display: flex;
-        gap: 40px;
-        font-size: 12px;
-        text-transform: uppercase;
-        font-weight: 500;
-        color: white;
-    }
-
-    &__active {
-        position: relative;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 14px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: red;
-         }
-    }
-
-
-    &__form {
-        position: relative;
-        max-width: 320px;
-        margin: 0 auto;
-    }
-
-
-    &__input {
-        width: 100%;
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid white;
-        padding: 0;
-        color: white;
-
-        &::placeholder {
-            color: white;
-        }
-    }
-
-        &__icon {
-            position: absolute;
-            right: 0;
-            top: 0.2rem;
-        }
-    
-
-    &--library {
-        background-image: url('/src/images/header-library.png');
-        background-size: cover;
-        padding-bottom: 60px;
-       
-
-        &__buttons {
-            padding-top: 12px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-    }
+  }
 }
