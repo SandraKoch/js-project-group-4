@@ -1,0 +1,57 @@
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.25rem;
+  padding-bottom: 2.5rem;
+  gap: 0.125rem;
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.125rem;
+    list-style-type: none;
+  }
+
+  &__element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  &__element--active {
+    background-color: #ff6b08;
+    color: white;
+  }
+
+  &__element--button {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    background-image: url('/src/images/arrow-left.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &__element--button:disabled {
+    background-color: white;
+  }
+
+  &__element--button--right {
+    background-image: url('/src/images/arrow-right.png');
+  }
+
+  &__element:not(.pagination__element--active):not(.pagination__element--button) {
+    background-color: transparent;
+  }
+}
