@@ -1,6 +1,7 @@
 import { API_KEY } from './config';
 
 const searchInputElement = document.querySelector('#search-input');
+const main = document.querySelector('#main');
 console.log(searchInputElement);
 
 const options = {
@@ -14,5 +15,32 @@ const options = {
 
 fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
   .then(response => response.json())
-  .then(response => console.log(response))
+  .then(({ results }) => {
+    console.log(results);
+    main.innerHTML = '';
+    results.forEach((film, filmIndex) => {
+      console.log(film, filmIndex);
+      main.insertAdjacentHTML(
+        'beforeend',
+        `
+      <ul id="main__list" class="main__list">
+    <li id="main__list-item" class="main__list-item">
+      <figure id="main__movie" class="main__movie">
+        <img id="main__image" class="main__image"
+        src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
+        <figcaption id="main__caption" class="main__caption">
+          <span id="main__movie-name" class="main__movie-name">
+            ${film.original_title}
+          </span>
+          <span id="main__movie-genres" class="main__movie-genres">
+            ${film.genre_ids}
+          </span>
+        </figcaption>
+      </figure>
+    </li>
+  </ul>
+      `,
+      );
+    });
+  })
   .catch(err => console.error(err));
