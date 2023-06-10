@@ -1,22 +1,21 @@
 .pagination {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 1.25rem;
-    padding-bottom: 2.5rem;
-    gap: 0.125rem;
-}
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.25rem;
+  padding-bottom: 2.5rem;
+  gap: 0.125rem;
 
-.pagination__list {
+  &__list {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.125rem;
     list-style-type: none;
-}
+  }
 
-.pagination__element {
+  &__element {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,31 +26,32 @@
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
-}
+  }
 
-.pagination__element--active {
-    background-color: #FF6B08;
+  &__element--active {
+    background-color: #ff6b08;
     color: white;
-}
+  }
 
-.pagination__element--button {
+  &__element--button {
     width: 40px;
     height: 40px;
     border-radius: 5px;
-    background-color: #F7F7F7;
+    background-color: #f7f7f7;
     background-image: url('/src/images/arrow-left.png');
     background-repeat: no-repeat;
     background-position: center center;
-}
+  }
 
-.pagination__element--button:disabled {
+  &__element--button:disabled {
     background-color: white;
-}
+  }
 
-.pagination__element--button--right {
+  &__element--button--right {
     background-image: url('/src/images/arrow-right.png');
-}
+  }
 
-.pagination__element:not(.pagination__element--active):not(.pagination__element--button) {
+  &__element:not(.pagination__element--active):not(.pagination__element--button) {
     background-color: transparent;
+  }
 }
