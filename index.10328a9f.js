@@ -1,2 +1,0 @@
-const e=document.querySelector("#search-input");console.log(e);fetch("https://api.themoviedb.org/3/trending/movie/day?language=en-US",{method:"GET",headers:{accept:"application/json",Authorization:"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE"}}).then((e=>e.json())).then((e=>console.log(e))).catch((e=>console.error(e)));
-//# sourceMappingURL=index.10328a9f.js.map
