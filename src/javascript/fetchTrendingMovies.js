@@ -39,11 +39,6 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
     main.innerHTML = '';
     results.forEach((film, filmIndex) => {
       console.log(film, filmIndex);
-      //loop for genres display
-      for (let i = 0; i < genresArr.length; i++) {
-        if ((genresArr[i] = film.genre_ids)) {
-        }
-      }
 
       main.insertAdjacentHTML(
         'beforeend',
