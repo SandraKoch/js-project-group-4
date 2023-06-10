@@ -39,6 +39,7 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
     main.innerHTML = '';
     results.forEach((film, filmIndex) => {
       // console.log(film, filmIndex);
+      // if
       main.insertAdjacentHTML(
         'beforeend',
         `
