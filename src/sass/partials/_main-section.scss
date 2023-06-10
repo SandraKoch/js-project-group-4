@@ -58,6 +58,7 @@
     @include desktop {
       font-size: var(--font-20);
       line-height: var(--line-height-medium);
+      max-width: 395px;
     }
   }
   &__movie-genres {
