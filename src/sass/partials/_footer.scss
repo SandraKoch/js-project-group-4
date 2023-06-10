@@ -24,9 +24,56 @@
     &--team {
       text-decoration: underline;
       cursor: pointer;
+      animation: Color 4s linear infinite;
     }
   }
   &__icon {
     fill: var(--color-orange);
+  }
+}
+
+@keyframes Color {
+  0% {
+    color: #fa0000;
+  }
+
+  10% {
+    color: #f95f00;
+  }
+
+  20% {
+    color: #f3ec0b;
+  }
+
+  30% {
+    color: #85fa00;
+  }
+
+  40% {
+    color: #01fa9a;
+  }
+
+  50% {
+    color: #00a7fa;
+  }
+
+  60% {
+    color: #0217fd;
+  }
+
+  70% {
+    color: #6800fa;
+  }
+
+  80% {
+    color: #ff00d4;
+  }
+
+  90% {
+    color: #f70285;
+  }
+
+  100% {
+    color: #ff0404;
   }
 }
