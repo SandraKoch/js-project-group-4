@@ -27,18 +27,22 @@ setTimeout(() => {
 function fetchMovieInfo(movieId) {
   return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, optionsTrending)
     .then(response => response.json())
-    .then(details => console.log(details))
     .catch(error => console.log(error));
 }
 
 main.addEventListener('click', e => {
   console.log(e.target.id);
-  fetchMovieInfo(e.target.id).then(movie => {
-    fillModal(movie).catch(error => console.log(error));
-  });
+  fetchMovieInfo(e.target.id)
+    .then(movie => {
+      console.log(movie);
+      fillModal(movie);
+    })
+    .catch(error => console.log(error));
 });
 
 function fillModal(movie) {
+  modal.innerHTML = '';
+
   modal.insertAdjacentHTML(
     'beforeend',
     `<button id="modal-close-button" class="modal-close-button">
