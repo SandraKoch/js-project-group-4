@@ -93,23 +93,65 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
   })
   .catch(err => console.error(err));
 
-//search images
+//search movies
 
-async function searchImages(query, page) {
+async function searchMovies(query, page) {
   // const response = await fetch(`https://api.themoviedb.org/3/search/keyword?query=${query}&PAGE=${page}`, options);
-  return fetch('https://api.themoviedb.org/3/search/keyword?query=CAR&page=1', options)
+  return fetch(
+    `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&page=${page}`,
+    options,
+  )
     .then(response => response.json())
     .then(jsonResponse => {
-      console.log(jsonResponse);
-
       return jsonResponse;
     })
     .catch(err => console.error(err));
 }
 
+function displayMovies(results) {
+  const moviesArr = results.results;
+  main.innerHTML = '';
+  moviesArr.forEach(film => {
+    main.insertAdjacentHTML(
+      'beforeend',
+      `
+      <ul id="main__list" class="main__list">
+        <li id="main__list-item" class="main__list-item">
+          <figure id="main__movie" class="main__movie">
+            <img id="${film.id}" class="main__image"
+              src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
+            <figcaption id="main__caption" class="main__caption">
+              <span id="main__movie-name" class="main__movie-name">
+                ${film.original_title}
+              </span>
+              <div>
+              <span id="main__movie-genres" class="main__movie-data">{movieGenres}</span>
+              <span class="main__movie-data">|</span>
+              <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
+                {releaseDate}
+              </span>
+              </div>
+            </figcaption>
+          </figure>
+        </li>
+      </ul>
+    `,
+    );
+  });
+}
+
 searchFormElement.addEventListener('submit', async e => {
   e.preventDefault();
   const trimmedInputValue = searchInputElement.value.trim();
-  const foundImages = await searchImages(trimmedInputValue, PAGE);
-  console.log('foundImages', foundImages);
+  const foundMovies = await searchMovies(trimmedInputValue, PAGE);
+  // console.log('foundMovies', foundMovies);
+  handleResults(foundMovies);
 });
+
+function handleResults(results) {
+  if (results) {
+    displayMovies(results);
+  } else {
+    Notify.failure('Oops, there are no movies matching your search query. Please try again.');
+  }
+}
