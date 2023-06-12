@@ -9,17 +9,25 @@ const searchInputElement = document.querySelector('#search-input');
 const main = document.querySelector('#main');
 let genresArr = [];
 
-// fetch to get the list of genres
-const optionsGenres = {
+export const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
+    Authorization: 'Bearer ' + ACCESS_TOKEN,
   },
 };
 
-fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', optionsGenres)
+// fetch to get the list of genres
+// const optionsGenres = {
+//   method: 'GET',
+//   headers: {
+//     accept: 'application/json',
+//     Authorization:
+//       'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
+//   },
+// };
+
+fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
   .then(response => response.json())
   .then(response => {
     genresArr = response.genres;
@@ -28,16 +36,16 @@ fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', optionsGenres
   .catch(err => console.error(err));
 
 // fetch to get the list of trending movies
-export const optionsTrending = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
-  },
-};
+// export const optionsTrending = {
+//   method: 'GET',
+//   headers: {
+//     accept: 'application/json',
+//     Authorization:
+//       'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
+//   },
+// };
 
-fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsTrending)
+fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
   .then(response => response.json())
   .then(({ results }) => {
     // console.log(results);
@@ -90,15 +98,6 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
   .catch(err => console.error(err));
 
 //search images
-
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
-  },
-};
 
 async function searchImages(query, page) {
   // const response = await fetch(`https://api.themoviedb.org/3/search/keyword?query=${query}&PAGE=${page}`, options);
