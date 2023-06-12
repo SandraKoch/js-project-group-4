@@ -1,28 +1,43 @@
 import './fetchTrendingMovies';
-import { optionsTrending } from './fetchTrendingMovies';
+import { optionsTrending, trendingMovies } from './fetchTrendingMovies';
 
+const modal = document.querySelector('#backdrop');
+const closeBtn = document.querySelector('#modal-close-button');
 const main = document.querySelector('#main');
 
 //opening modal window
-setTimeout(() => {
-  const closeBtn = document.querySelector('#modal-close-button');
-  let openBtn = document.querySelectorAll('.main__image');
-  const modal = document.querySelector('#backdrop');
 
-  const openModal = function () {
-    modal.classList.remove('is-hidden');
-  };
+const openModal = event => {
+  event.preventDefault();
 
-  const closeModal = function () {
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  modal.classList.remove('is-hidden');
+};
+
+const closeModal = event => {
+  event.preventDefault();
+
+  modal.classList.add('is-hidden');
+};
+
+main.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
+window.addEventListener('keydown', event => {
+  event.preventDefault();
+  if (event.code === 'Escape') {
     modal.classList.add('is-hidden');
-  };
+  }
+});
+modal.addEventListener('click', event => {
+  event.preventDefault();
+  if (event.target === modal) {
+    modal.classList.add('is-hidden');
+  }
+});
 
-  openBtn.forEach(item => {
-    item.addEventListener('click', openModal);
-  });
-
-  closeBtn.addEventListener('click', closeModal);
-}, 1000);
 
 function fetchMovieInfo(movieId) {
   return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, optionsTrending)
