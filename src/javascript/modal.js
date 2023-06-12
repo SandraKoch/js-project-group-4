@@ -1,21 +1,34 @@
-import './fetchTrendingMovies';
+const modal = document.querySelector('#backdrop');
+const closeBtn = document.querySelector('#modal-close-button');
+const openBtn = document.querySelector('#main');
 
-setTimeout(() => {
-  const closeBtn = document.querySelector('#modal-close-button');
-  let openBtn = document.querySelectorAll('.main__image');
-  const modal = document.querySelector('#backdrop');
+const openModal = event => {
+  event.preventDefault();
 
-  const openModal = function () {
-    modal.classList.remove('is-hidden');
-  };
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
 
-  const closeModal = function () {
+  modal.classList.remove('is-hidden');
+};
+
+const closeModal = event => {
+  event.preventDefault();
+
+  modal.classList.add('is-hidden');
+};
+
+openBtn.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
+window.addEventListener('keydown', event => {
+  event.preventDefault();
+  if (event.code === 'Escape') {
     modal.classList.add('is-hidden');
-  };
-
-  openBtn.forEach(item => {
-    item.addEventListener('click', openModal);
-  });
-
-  closeBtn.addEventListener('click', closeModal);
-}, 1000);
+  }
+});
+modal.addEventListener('click', event => {
+  event.preventDefault();
+  if (event.target === modal) {
+    modal.classList.add('is-hidden');
+  }
+});
