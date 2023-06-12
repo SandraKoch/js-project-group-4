@@ -67,9 +67,13 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
                 <span id="main__movie-name" class="main__movie-name">
                   ${film.original_title}
                 </span>
-                <span id="main__movie-genres" class="main__movie-genres">${movieGenres}</span><span>|</span><span id="main__movie-release-date" class="main__movie-release-date">
+                <div>
+                <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
+                <span class="main__movie-data">|</span>
+                <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
                   ${releaseDate}
                 </span>
+                </div>
               </figcaption>
             </figure>
           </li>
