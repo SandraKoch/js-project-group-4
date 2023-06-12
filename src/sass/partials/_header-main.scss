@@ -76,6 +76,8 @@
     position: relative;
     max-width: 320px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
   }
 
   &__input {
@@ -133,11 +135,15 @@
 }
 
 .submit-button {
-  background-image: url(src/images/search_icon.svg);
+  display: inline;
+  background-image: url(/src/images/search_icon.svg);
+  width: 10px;
+  height: 10px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   /* put the height and width of your image here */
-  height: 50px;
-  width: 200px;
+  // height: 50px;
+  // width: 200px;
   border: none;
+  background-color: transparent;
 }
