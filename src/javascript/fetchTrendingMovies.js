@@ -22,7 +22,7 @@ fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', optionsGenres
   .catch(err => console.error(err));
 
 // fetch to get the list of trending movies
-const optionsTrending = {
+export const optionsTrending = {
   method: 'GET',
   headers: {
     accept: 'application/json',
@@ -57,7 +57,7 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
         <ul id="main__list" class="main__list">
           <li id="main__list-item" class="main__list-item">
             <figure id="main__movie" class="main__movie">
-              <img id="main__image" class="main__image"
+              <img id="${film.id}" class="main__image"
                 src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
               <figcaption id="main__caption" class="main__caption">
                 <span id="main__movie-name" class="main__movie-name">
