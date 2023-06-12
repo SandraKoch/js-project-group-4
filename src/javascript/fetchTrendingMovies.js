@@ -1,5 +1,6 @@
 import { API_KEY } from './config';
 
+const searchFormElement = document.querySelector('#search-form');
 const searchInputElement = document.querySelector('#search-input');
 const main = document.querySelector('#main');
 let genresArr = [];
@@ -9,7 +10,8 @@ const optionsGenres = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
   },
 };
 
@@ -26,7 +28,8 @@ const optionsTrending = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
   },
 };
 
@@ -39,16 +42,18 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
       console.log(film, filmIndex);
 
       // Get the genre names based on genre IDs
-      const movieGenres = film.genre_ids.map(genreId => {
-        const genre = genresArr.find(genre => genre.id === genreId);
-        return genre ? genre.name : '';
-      }).join(', ');
+      const movieGenres = film.genre_ids
+        .map(genreId => {
+          const genre = genresArr.find(genre => genre.id === genreId);
+          return genre ? genre.name : '';
+        })
+        .join(', ');
 
       // Format the release date
       const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
       });
 
       main.insertAdjacentHTML(
@@ -73,7 +78,7 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
             </figure>
           </li>
         </ul>
-      `
+      `,
       );
     });
   })
