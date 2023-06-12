@@ -28,7 +28,7 @@ fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', optionsGenres
   .catch(err => console.error(err));
 
 // fetch to get the list of trending movies
-const optionsTrending = {
+export const optionsTrending = {
   method: 'GET',
   headers: {
     accept: 'application/json',
@@ -49,15 +49,15 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
       const movieGenres = film.genre_ids
         .map(genreId => {
           const genre = genresArr.find(genre => genre.id === genreId);
-          return genre ? genre.name : '';
+          return genre ? genre.name.toString() : '';
         })
         .join(', ');
 
       // Format the release date
       const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
         year: 'numeric',
-        month: 'long',
-        day: 'numeric',
+        month: undefined,
+        day: undefined,
       });
 
       main.insertAdjacentHTML(
@@ -66,18 +66,19 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', optionsT
         <ul id="main__list" class="main__list">
           <li id="main__list-item" class="main__list-item">
             <figure id="main__movie" class="main__movie">
-              <img id="main__image" class="main__image"
+              <img id="${film.id}" class="main__image"
                 src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
               <figcaption id="main__caption" class="main__caption">
                 <span id="main__movie-name" class="main__movie-name">
                   ${film.original_title}
                 </span>
-                <span id="main__movie-release-date" class="main__movie-release-date">
+                <div>
+                <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
+                <span class="main__movie-data">|</span>
+                <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
                   ${releaseDate}
                 </span>
-                <span id="main__movie-genres" class="main__movie-genres">
-                  ${movieGenres}
-                </span>
+                </div>
               </figcaption>
             </figure>
           </li>
