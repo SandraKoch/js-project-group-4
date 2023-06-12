@@ -31,7 +31,6 @@ fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
   .then(response => response.json())
   .then(response => {
     genresArr = response.genres;
-    // console.log('genresArr', genresArr);
   })
   .catch(err => console.error(err));
 
@@ -48,11 +47,8 @@ fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
 fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
   .then(response => response.json())
   .then(({ results }) => {
-    // console.log(results);
     main.innerHTML = '';
     results.forEach((film, filmIndex) => {
-      // console.log(film, filmIndex);
-
       // Get the genre names based on genre IDs
       const movieGenres = film.genre_ids
         .map(genreId => {

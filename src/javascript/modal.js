@@ -1,5 +1,5 @@
 import './fetchTrendingMovies';
-import { optionsTrendingz, trendingMovies } from './fetchTrendingMovies';
+import { options, trendingMovies } from './fetchTrendingMovies';
 
 const modal = document.querySelector('#backdrop');
 const closeBtn = document.querySelector('#modal-close-button');
@@ -39,7 +39,7 @@ modal.addEventListener('click', event => {
 });
 
 function fetchMovieInfo(movieId) {
-  return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, optionsTrending)
+  return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, options)
     .then(response => response.json())
     .catch(error => console.log(error));
 }
