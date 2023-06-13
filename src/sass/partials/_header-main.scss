@@ -39,7 +39,7 @@
     align-items: center;
     gap: 8px;
   }
-  &__logo{
+  &__logo {
     padding-top: 2px;
     display: inline-block;
     vertical-align: middle;
@@ -47,7 +47,7 @@
     transform-style: preserve-3d;
   }
   &__logo--animated {
-    animation: rotateCarousel 4s infinite linear;;
+    animation: rotateCarousel 4s infinite linear;
   }
 
   &__name {
@@ -70,7 +70,7 @@
   &__item {
     position: relative;
     cursor: pointer;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -87,46 +87,45 @@
       transform: scaleX(1);
     }
   }
-     &__active {
-       position: relative;
-       cursor: pointer;
-  
-       &::after {
-         content: '';
-         position: absolute;
-         bottom: -3px;
-         left: 0;
-         width: 100%;
-         height: 3px;
-         background-color: red;
-       }
-     }
+  &__active {
+    position: relative;
+    cursor: pointer;
 
-&__form {
-  position: relative;
-  max-width: 394px;
-  margin: 0 auto;
-}
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: red;
+    }
+  }
 
-&__input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid white;
-  padding: 0;
-  color: white;
+  &__form {
+    position: relative;
+    max-width: 394px;
+    margin: 0 auto;
+  }
 
-  &::placeholder {
+  &__input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    padding: 0;
     color: white;
-  }
 
-  &:focus {
-    outline: none;
-    border-color: #FF6B08;
-    box-shadow: 0 2px 4px 0 #FF6B08;
-  }
+    &::placeholder {
+      color: white;
+    }
 
-}
+    &:focus {
+      outline: none;
+      border-color: #ff6b08;
+      box-shadow: 0 2px 4px 0 #ff6b08;
+    }
+  }
 
   &__icon {
     position: absolute;
@@ -168,12 +167,26 @@
     }
   }
 }
- @keyframes rotateCarousel {
-   from {
-     transform: rotateY(0deg);
-   }
 
-   to {
-     transform: rotateY(360deg);
-   }
- }
+.submit-button {
+  display: inline;
+  background-image: url(/src/images/search_icon.svg);
+  width: 10px;
+  height: 10px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  /* put the height and width of your image here */
+  // height: 50px;
+  // width: 200px;
+  border: none;
+  background-color: transparent;
+}
+@keyframes rotateCarousel {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
