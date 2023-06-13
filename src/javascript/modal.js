@@ -1,43 +1,23 @@
 import './fetchTrendingMovies';
-import { optionsTrending, trendingMovies } from './fetchTrendingMovies';
+import { optionsTrending } from './fetchTrendingMovies';
 
-const modal = document.querySelector('#backdrop');
-const closeBtn = document.querySelector('#modal-close-button');
 const main = document.querySelector('#main');
 
 //opening modal window
-
-const openModal = event => {
-  event.preventDefault();
-
-  if (event.target.nodeName !== 'IMG') {
-    return;
-  }
-
-  modal.classList.remove('is-hidden');
-};
-
-const closeModal = event => {
-  event.preventDefault();
+setTimeout(() => {
+  let openBtn = document.querySelectorAll('.main__image');
+  const modal = document.querySelector('#backdrop');
 
   modal.classList.add('is-hidden');
-};
 
-main.addEventListener('click', openModal);
-closeBtn.addEventListener('click', closeModal);
-window.addEventListener('keydown', event => {
-  event.preventDefault();
-  if (event.code === 'Escape') {
-    modal.classList.add('is-hidden');
-  }
-});
-modal.addEventListener('click', event => {
-  event.preventDefault();
-  if (event.target === modal) {
-    modal.classList.add('is-hidden');
-  }
-});
+  const openModal = function () {
+    modal.classList.remove('is-hidden');
+  };
 
+  openBtn.forEach(item => {
+    item.addEventListener('click', openModal);
+  });
+}, 1000);
 
 function fetchMovieInfo(movieId) {
   return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, optionsTrending)
@@ -52,19 +32,24 @@ main.addEventListener('click', e => {
       console.log(movie);
       fillModal(movie);
     })
+    .then(() => {
+      closeModal();
+    })
     .catch(error => console.log(error));
 });
 
 function fillModal(movie) {
-  modal.innerHTML = '';
+  const modal = document.querySelector('#backdrop');
 
   modal.insertAdjacentHTML(
     'beforeend',
-    `<button id="modal-close-button" class="modal-close-button">
-  <svg class="close-button" width="30px" height="30px">
-    <use href="./images/close.svg#close"></use>
-  </svg>
-</button>
+    `<div id="modal" class="modal">
+    <button id="modal-close-button" class="modal-close-button"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="close">
+    <path id="Vector 1" d="M8 8L22 22" stroke="black" stroke-width="2"/>
+    <path id="Vector 2" d="M8 22L22 8" stroke="black" stroke-width="2"/>
+    </g>
+    </svg></button>
 <div id="image-box" class="image-box">
   <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" id="image-box__image" class="image-box__image" />
 </div>
@@ -78,7 +63,7 @@ function fillModal(movie) {
 
         <!--przykładowe wartości-->
         <p id="movie-details__value" class="movie-details__value">
-          <span id="movie-rating" class="movie-rating">${movie.vote_average}/</span>/<span
+          <span id="movie-rating" class="movie-rating">${movie.vote_average}</span>/<span
             id="movie-votes"
             class="movie-votes"
             >${movie.vote_count}</span
@@ -125,6 +110,19 @@ function fillModal(movie) {
     <button type="button" id="watched-button" class="watched-button">ADD TO WATCHED</button>
     <button type="button" id="queue-button" class="queue-button">ADD TO QUEUE</button>
   </div>
+</div>
 </div>`,
   );
+
+  //closing modal window
+  const closeBtn = document.getElementById('modal-close-button');
+
+  const closeModal = function () {
+    const modal = document.querySelector('#backdrop');
+
+    modal.classList.add('is-hidden');
+    modal.innerHTML = '';
+  };
+
+  closeBtn.addEventListener('click', closeModal);
 }
