@@ -123,12 +123,21 @@ searchFormElement.addEventListener('submit', async e => {
   e.preventDefault();
   const trimmedInputValue = searchInputElement.value.trim();
   const foundMovies = await searchMovies(trimmedInputValue, PAGE);
-  handleResults(foundMovies);
+  // console.log(foundMovies, 'foundMovies');
+
+  if (trimmedInputValue !== '') {
+    handleResults(foundMovies);
+  } else {
+    Notify.info('Please, enter the movie name to start search');
+  }
 });
 
-function handleResults(results) {
-  if (results) {
-    displayMovies(results);
+function handleResults(object) {
+  if (object.results.length) {
+    displayMovies(object);
+    // console.log(object, 'object');
+    const total = object.total_results;
+    Notify.success(`Hooray! You have found ${total} movies matching your query`);
   } else {
     Notify.failure('Oops, there are no movies matching your search query. Please try again.');
   }
