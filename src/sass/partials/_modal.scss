@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.025);
   position: fixed;
   width: 100%;
   height: 100%;
@@ -50,7 +49,43 @@
 }
 
 .movie-title {
-  margin: 0;
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.movie-details {
+  display: flex;
+  align-items: center;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__aspects {
+    margin-right: 50px;
+  }
+
+  &__values {
+    font-size: 12px;
+  }
+
+  &__item-aspect {
+    width: 70px;
+  }
+
+  &__item-value {
+    width: 120px;
+  }
+
+  &__aspect {
+    color: rgba(140, 140, 140, 1);
+    font-size: 12px;
+    font-weight: 500;
+  }
 }
 
 .is-hidden {

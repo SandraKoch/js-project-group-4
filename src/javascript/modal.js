@@ -32,9 +32,6 @@ main.addEventListener('click', e => {
       console.log(movie);
       fillModal(movie);
     })
-    .then(() => {
-      closeModal();
-    })
     .catch(error => console.log(error));
 });
 
@@ -57,11 +54,25 @@ function fillModal(movie) {
   <h2 id="movie-title" class="movie-title">${movie.title}</h2>
 
   <div class="movie-details">
-    <ul class="movie-details__list">
-      <li class="movie-details__item">
+    <ul class="movie-details__list movie-details__aspects">
+      <li class="movie-details__item-aspect">
         <p class="movie-details__aspect">Vote / Votes</p>
+      </li>
 
-        <!--przykładowe wartości-->
+      <li class="movie-details__item-aspect">
+        <p class="movie-details__aspect">Popularity</p>
+      </li>
+
+      <li class="movie-details__item-aspect">
+        <p class="movie-details__aspect">Orginal Title</p>
+      </li>
+
+      <li class="movie-details__item-aspect">
+        <p class="movie-details__aspect">Genre</p>
+      </li>
+    </ul>
+    <ul class="movie-details__list movie-details__values">
+      <li class="movie-details__item-value"><!--przykładowe wartości-->
         <p id="movie-details__value" class="movie-details__value">
           <span id="movie-rating" class="movie-rating">${movie.vote_average}</span>/<span
             id="movie-votes"
@@ -71,40 +82,25 @@ function fillModal(movie) {
         </p>
       </li>
 
-      <li class="movie-details__item">
-        <p class="movie-details__aspect">Popularity</p>
-        <!--przykładowe wartości-->
-        <p id="movie-details__value" class="movie-details__value">
+      <li class="movie-details__item-value"><p id="movie-details__value" class="movie-details__value">
           <span id="movie-popularity" class="movie-popularity">${movie.popularity}</span>
         </p>
       </li>
 
-      <li class="movie-details__item">
-        <p class="movie-details__aspect">${movie.original_title}</p>
-        <!--przykładowe wartości-->
-        <p id="movie-details__value" class="movie-details__value">
-          <span id="orginal-movie-title" class="orginal-movie-title">Orginal Title</span>
+      <li class="movie-details__item-value"><p id="movie-details__value" class="movie-details__value">
+          <span id="orginal-movie-title" class="orginal-movie-title">${movie.original_title}</span>
         </p>
       </li>
 
-      <li class="movie-details__item">
-        <p class="movie-details__aspect">Genre</p>
-        <!--przykładowe wartości-->
-        <p id="movie-details__value" class="movie-details__value">
-          <span id="movie-genre" class="movie-genre">Wester</span>
+      <li class="movie-details__item-value"><p id="movie-details__value" class="movie-details__value">
+          <span id="movie-genre" class="movie-genre">${movie.genres[0].name}</span>
         </p>
       </li>
     </ul>
   </div>
   <div class="movie-description">
     <p class="movie-description__about">ABOUT</p>
-    <p id="movie-description__description" class="movie-description__description">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. A labore ut quo. Maxime corrupti
-      quasi quos sed molestias nisi delectus tempore est, commodi sit repudiandae, dolor
-      praesentium veniam. Corrupti maiores voluptate tenetur ullam enim, at deleniti unde
-      dignissimos porro dolores perferendis accusantium harum animi reprehenderit obcaecati
-      molestiae sunt doloremque earum.
-    </p>
+    <p id="movie-description__description" class="movie-description__description">${movie.overview}</p>
   </div>
   <div class="buttons-box">
     <button type="button" id="watched-button" class="watched-button">ADD TO WATCHED</button>
