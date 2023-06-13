@@ -1,8 +1,8 @@
 import './fetchTrendingMovies';
-import { options, trendingMovies } from './fetchTrendingMovies';
+import { options } from './fetchTrendingMovies';
 
 const modal = document.querySelector('#backdrop');
-const closeBtn = document.querySelector('#modal-close-button');
+
 const main = document.querySelector('#main');
 
 //opening modal window
@@ -24,7 +24,6 @@ const closeModal = event => {
 };
 
 main.addEventListener('click', openModal);
-closeBtn.addEventListener('click', closeModal);
 window.addEventListener('keydown', event => {
   // event.preventDefault();
   if (event.code === 'Escape') {
@@ -61,9 +60,13 @@ function fillModal(movie) {
     'beforeend',
     `<div id="modal" class="modal">
     <button id="modal-close-button" class="modal-close-button">
-  <svg class="close-button" width="30px" height="30px">
-    <use href="./images/close.svg#close"></use>
-  </svg>
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="close">
+    <path id="Vector 1" d="M8 8L22 22" stroke="black" stroke-width="2"/>
+    <path id="Vector 2" d="M8 22L22 8" stroke="black" stroke-width="2"/>
+    </g>
+    </svg>
+    
 </button>
 <div id="image-box" class="image-box">
   <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" id="image-box__image" class="image-box__image" />
@@ -123,4 +126,7 @@ function fillModal(movie) {
 </div>
 </div>`,
   );
+
+  const closeBtn = document.querySelector('#modal-close-button');
+  closeBtn.addEventListener('click', closeModal);
 }
