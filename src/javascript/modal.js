@@ -2,7 +2,6 @@ import './fetchTrendingMovies';
 import { options } from './fetchTrendingMovies';
 
 const modal = document.querySelector('#backdrop');
-
 const main = document.querySelector('#main');
 
 //opening modal window
@@ -19,7 +18,7 @@ const openModal = event => {
 
 const closeModal = event => {
   event.preventDefault();
-
+  modal.innerHTML = '';
   modal.classList.add('is-hidden');
 };
 
@@ -54,8 +53,6 @@ main.addEventListener('click', e => {
 });
 
 function fillModal(movie) {
-  modal.innerHTML = '';
-
   modal.insertAdjacentHTML(
     'beforeend',
     `<div id="modal" class="modal">
