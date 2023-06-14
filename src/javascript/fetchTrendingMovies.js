@@ -1,4 +1,5 @@
-import { API_KEY } from './config';
+// import { API_KEY } from './config';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const ACCESS_TOKEN =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE';
@@ -17,32 +18,12 @@ export const options = {
   },
 };
 
-// fetch to get the list of genres
-// const optionsGenres = {
-//   method: 'GET',
-//   headers: {
-//     accept: 'application/json',
-//     Authorization:
-//       'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
-//   },
-// };
-
 fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
   .then(response => response.json())
   .then(response => {
     genresArr = response.genres;
   })
   .catch(err => console.error(err));
-
-// fetch to get the list of trending movies
-// export const optionsTrending = {
-//   method: 'GET',
-//   headers: {
-//     accept: 'application/json',
-//     Authorization:
-//       'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE',
-//   },
-// };
 
 fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
   .then(response => response.json())
@@ -94,9 +75,7 @@ fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
   .catch(err => console.error(err));
 
 //search movies
-
 async function searchMovies(query, page) {
-  // const response = await fetch(`https://api.themoviedb.org/3/search/keyword?query=${query}&PAGE=${page}`, options);
   return fetch(
     `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&page=${page}`,
     options,
@@ -144,13 +123,21 @@ searchFormElement.addEventListener('submit', async e => {
   e.preventDefault();
   const trimmedInputValue = searchInputElement.value.trim();
   const foundMovies = await searchMovies(trimmedInputValue, PAGE);
-  // console.log('foundMovies', foundMovies);
-  handleResults(foundMovies);
+  // console.log(foundMovies, 'foundMovies');
+
+  if (trimmedInputValue !== '') {
+    handleResults(foundMovies);
+  } else {
+    Notify.info('Please, enter the movie name to start search');
+  }
 });
 
-function handleResults(results) {
-  if (results) {
-    displayMovies(results);
+function handleResults(object) {
+  if (object.results.length) {
+    displayMovies(object);
+    // console.log(object, 'object');
+    const total = object.total_results;
+    Notify.success(`Hooray! You have found ${total} movies matching your query`);
   } else {
     Notify.failure('Oops, there are no movies matching your search query. Please try again.');
   }
