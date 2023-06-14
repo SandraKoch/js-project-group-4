@@ -48,6 +48,7 @@ main.addEventListener('click', e => {
     .then(movie => {
       console.log(movie);
       fillModal(movie);
+      watchedQueue(movie);
     })
     .catch(error => console.log(error));
 });
@@ -127,3 +128,24 @@ function fillModal(movie) {
   const closeBtn = document.querySelector('#modal-close-button');
   closeBtn.addEventListener('click', closeModal);
 }
+
+const watchedQueue = movie => {
+  const watchedBtn = document.querySelector('#watched-button');
+  const queueBtn = document.querySelector('#queue-button');
+
+  const addToLS = (movie, key) => {
+    let watchedArr = JSON.parse(localStorage.getItem(key));
+    if (watchedArr === null) watchedArr = [];
+    watchedArr.push(movie);
+    console.log(watchedArr);
+    const jsonMovie = JSON.stringify(watchedArr);
+    localStorage.setItem(key, jsonMovie);
+  };
+
+  watchedBtn.addEventListener('click', () => {
+    addToLS(movie, 'watched');
+  });
+  queueBtn.addEventListener('click', () => {
+    addToLS(movie, 'queue');
+  });
+};
