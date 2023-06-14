@@ -4,11 +4,7 @@ import { options } from './fetchTrendingMovies';
 const modal = document.querySelector('#backdrop');
 const main = document.querySelector('#main');
 
-//opening modal window
-
 const openModal = event => {
-  event.preventDefault();
-
   if (event.target.nodeName !== 'IMG') {
     return;
   }
@@ -16,24 +12,23 @@ const openModal = event => {
   modal.classList.remove('is-hidden');
 };
 
-const closeModal = event => {
-  event.preventDefault();
+const closeModal = () => {
   modal.innerHTML = '';
   modal.classList.add('is-hidden');
 };
 
 main.addEventListener('click', openModal);
 window.addEventListener('keydown', event => {
-  // event.preventDefault();
   if (event.code === 'Escape') {
     modal.classList.add('is-hidden');
   }
+  modal.innerHTML = '';
 });
 modal.addEventListener('click', event => {
-  event.preventDefault();
   if (event.target === modal) {
     modal.classList.add('is-hidden');
   }
+  modal.innerHTML = '';
 });
 
 function fetchMovieInfo(movieId) {
@@ -43,10 +38,8 @@ function fetchMovieInfo(movieId) {
 }
 
 main.addEventListener('click', e => {
-  console.log(e.target.id);
   fetchMovieInfo(e.target.id)
     .then(movie => {
-      console.log(movie);
       fillModal(movie);
     })
     .catch(error => console.log(error));
