@@ -4,3 +4,4 @@ import './javascript/pagination';
 import { config } from './javascript/config';
 import { fetchTrendingMovies } from './javascript/fetchTrendingMovies';
 import './javascript/modal';
+import './javascript/backToTop';
