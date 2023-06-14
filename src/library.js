@@ -4,12 +4,11 @@ import './javascript/loader.js';
 const main = document.querySelector('#main');
 let genresArr = [];
 
-const loadWatchedFromLS = () => {
+const loadWatchedFromLS = key => {
   try {
-    const parsedArr = JSON.parse(localStorage.getItem('watched'));
+    const parsedArr = JSON.parse(localStorage.getItem(key));
     console.log(parsedArr);
     if (parsedArr === null) return;
-
     parsedArr.forEach(film => {
       console.log(film);
       console.log(genresArr);
@@ -56,4 +55,18 @@ const loadWatchedFromLS = () => {
   }
 };
 
-loadWatchedFromLS();
+const userQueue = document.querySelector('#user-queue-btn');
+const userWatched = document.querySelector('#user-watched-btn');
+
+userQueue.addEventListener('click', () => {
+  console.log('queue btn');
+  main.innerHTML = ' ';
+  loadWatchedFromLS('queue');
+});
+userWatched.addEventListener('click', () => {
+  console.log('watched btn');
+  main.innerHTML = ' ';
+  loadWatchedFromLS('watched');
+});
+
+loadWatchedFromLS('watched');
