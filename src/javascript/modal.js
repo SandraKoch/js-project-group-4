@@ -63,62 +63,61 @@ function fillModal(movie) {
     <path id="Vector 2" d="M8 22L22 8" stroke="black" stroke-width="2"/>
     </g>
     </svg>
-    
-</button>
+    </button>
 <div id="image-box" class="image-box">
   <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" id="image-box__image" class="image-box__image" />
 </div>
 <div id="movie-info" class="movie-info">
   <h2 id="movie-title" class="movie-title">${movie.title}</h2>
   <div class="movie-details">
-    <ul class="movie-details__list">
-      <li class="movie-details__item">
+    <ul class="movie-details__list movie-details__list-aspects">
+      <li class="movie-details__item-aspect">
         <p class="movie-details__aspect">Vote / Votes</p>
-        <!--przykładowe wartości-->
+      </li>
+      <li class="movie-details__item-aspect">
+        <p class="movie-details__aspect">Popularity</p>
+      </li>
+      <li class="movie-details__item-aspect">
+        <p class="movie-details__aspect">Orginal Title</p>
+      </li>
+      <li class="movie-details__item-aspect">
+        <p class="movie-details__aspect">Genre</p>
+      </li>
+    </ul>
+    <ul class="movie-details__list">
+      <li class="movie-details__item-value">
         <p id="movie-details__value" class="movie-details__value">
-          <span id="movie-rating" class="movie-rating">${movie.vote_average}/</span>/<span
+          <span id="movie-rating" class="movie-rating">${movie.vote_average}</span> / <span
             id="movie-votes"
             class="movie-votes"
             >${movie.vote_count}</span
           >
         </p>
       </li>
-      <li class="movie-details__item">
-        <p class="movie-details__aspect">Popularity</p>
-        <!--przykładowe wartości-->
+      <li class="movie-details__item-value">
         <p id="movie-details__value" class="movie-details__value">
           <span id="movie-popularity" class="movie-popularity">${movie.popularity}</span>
         </p>
       </li>
-      <li class="movie-details__item">
-        <p class="movie-details__aspect">${movie.original_title}</p>
-        <!--przykładowe wartości-->
+      <li class="movie-details__item-value">
         <p id="movie-details__value" class="movie-details__value">
-          <span id="orginal-movie-title" class="orginal-movie-title">Orginal Title</span>
+          <span id="orginal-movie-title" class="orginal-movie-title">${movie.original_title}</span>
         </p>
       </li>
-      <li class="movie-details__item">
-        <p class="movie-details__aspect">Genre</p>
-        <!--przykładowe wartości-->
+      <li class="movie-details__item-value">
         <p id="movie-details__value" class="movie-details__value">
-          <span id="movie-genre" class="movie-genre">Wester</span>
+          <span id="movie-genre" class="movie-genre">${movie.genres[0].name}</span>
         </p>
       </li>
     </ul>
   </div>
   <div class="movie-description">
     <p class="movie-description__about">ABOUT</p>
-    <p id="movie-description__description" class="movie-description__description">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. A labore ut quo. Maxime corrupti
-      quasi quos sed molestias nisi delectus tempore est, commodi sit repudiandae, dolor
-      praesentium veniam. Corrupti maiores voluptate tenetur ullam enim, at deleniti unde
-      dignissimos porro dolores perferendis accusantium harum animi reprehenderit obcaecati
-      molestiae sunt doloremque earum.
-    </p>
+    <p id="movie-description__description" class="movie-description__description">${movie.overview}</p>
   </div>
   <div class="buttons-box">
-    <button type="button" id="watched-button" class="watched-button">ADD TO WATCHED</button>
-    <button type="button" id="queue-button" class="queue-button">ADD TO QUEUE</button>
+    <button type="button" id="watched-button" class="watched-button button">ADD TO WATCHED</button>
+    <button type="button" id="queue-button" class="queue-button button">ADD TO QUEUE</button>
   </div>
 </div>
 </div>`,
