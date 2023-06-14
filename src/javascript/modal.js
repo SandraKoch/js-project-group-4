@@ -136,6 +136,11 @@ const watchedQueue = movie => {
   const addToLS = (movie, key) => {
     let watchedArr = JSON.parse(localStorage.getItem(key));
     if (watchedArr === null) watchedArr = [];
+    if (watchedArr.find(movieInArr => movieInArr.id === movie.id)) {
+      console.log('Is on list');
+      return;
+    }
+    console.log(movie.id);
     watchedArr.push(movie);
     console.log(watchedArr);
     const jsonMovie = JSON.stringify(watchedArr);
