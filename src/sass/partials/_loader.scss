@@ -1,9 +1,9 @@
 .loader {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #ff8c00; /* Pomarańczowy kolor */
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 60px; /* Zmniejszamy rozmiar */
+  height: 60px; /* Zmniejszamy rozmiar */
   animation: spin 2s linear infinite;
   position: fixed;
   top: 50%;
@@ -11,8 +11,8 @@
   transform: translate(-50%, -50%);
   z-index: 9999;
   display: none;
-  margin-left: -60px;
-  margin-top: -60px;
+  margin-left: -30px;
+  margin-top: -30px;
 }
 
 @keyframes spin {
