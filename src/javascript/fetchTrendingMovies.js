@@ -18,61 +18,78 @@ export const options = {
   },
 };
 
-fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
-  .then(response => response.json())
-  .then(response => {
-    genresArr = response.genres;
-  })
-  .catch(err => console.error(err));
+function fetchGenres() {
+  return (
+    fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
+      .then(response => response.json())
+      // .then(response => {
+      //   genresArr = response.genres;
+      // })
+      .catch(err => console.error(err))
+  );
+}
 
-fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
-  .then(response => response.json())
-  .then(({ results }) => {
-    main.innerHTML = '';
-    results.forEach((film, filmIndex) => {
-      // Get the genre names based on genre IDs
-      const movieGenres = film.genre_ids
-        .map(genreId => {
-          const genre = genresArr.find(genre => genre.id === genreId);
-          return genre ? genre.name.toString() : '';
-        })
-        .join(', ');
+function fetchPopular() {
+  return (
+    fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
+      .then(response => response.json())
+      // .then(({ results }) => {
+      //
+      .catch(err => console.error(err))
+  );
+}
 
-      // Format the release date
-      const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: undefined,
-        day: undefined,
-      });
+Promise.all([fetchGenres(), fetchPopular()]).then(res => {
+  console.log('res', res);
+  const [genresRes, popularRes] = res;
+  //first promise
+  genresArr = genresRes.genres;
 
-      main.insertAdjacentHTML(
-        'beforeend',
-        `
-        <ul id="main__list" class="main__list">
-          <li id="main__list-item" class="main__list-item">
-            <figure id="main__movie" class="main__movie">
-              <img id="${film.id}" class="main__image"
-                src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
-              <figcaption id="main__caption" class="main__caption">
-                <span id="main__movie-name" class="main__movie-name">
-                  ${film.original_title}
-                </span>
-                <div>
-                <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
-                <span class="main__movie-data">|</span>
-                <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
-                  ${releaseDate}
-                </span>
-                </div>
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
-      `,
-      );
+  //second promise
+  main.innerHTML = '';
+  popularRes.results.forEach((film, filmIndex) => {
+    // Get the genre names based on genre IDs
+    const movieGenres = film.genre_ids
+      .map(genreId => {
+        const genre = genresArr.find(genre => genre.id === genreId);
+        return genre ? genre.name.toString() : '';
+      })
+      .join(', ');
+
+    // Format the release date
+    const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: undefined,
+      day: undefined,
     });
-  })
-  .catch(err => console.error(err));
+
+    main.insertAdjacentHTML(
+      'beforeend',
+      `
+            <ul id="main__list" class="main__list">
+              <li id="main__list-item" class="main__list-item">
+                <figure id="main__movie" class="main__movie">
+                  <img id="${film.id}" class="main__image"
+                    src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
+                  <figcaption id="main__caption" class="main__caption">
+                    <span id="main__movie-name" class="main__movie-name">
+                      ${film.original_title}
+                    </span>
+                    <div>
+                    <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
+                    <span class="main__movie-data">|</span>
+                    <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
+                      ${releaseDate}
+                    </span>
+                    </div>
+                  </figcaption>
+                </figure>
+              </li>
+            </ul>
+          `,
+    );
+  });
+});
 
 //search movies
 async function searchMovies(query, page) {
@@ -88,9 +105,11 @@ async function searchMovies(query, page) {
 }
 
 function displayMovies(results) {
+  console.log(genresArr, 'genresArr');
   const moviesArr = results.results;
   main.innerHTML = '';
   moviesArr.forEach(film => {
+    console.log('film.poster_path', film.poster_path);
     main.insertAdjacentHTML(
       'beforeend',
       `
@@ -98,7 +117,11 @@ function displayMovies(results) {
         <li id="main__list-item" class="main__list-item">
           <figure id="main__movie" class="main__movie">
             <img id="${film.id}" class="main__image"
-              src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
+              src="${
+                film.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
+                  : `http://localhost:1234/header-background-primary-768.91f8ed7a.png`
+              }" alt="${film.title}" />
             <figcaption id="main__caption" class="main__caption">
               <span id="main__movie-name" class="main__movie-name">
                 ${film.original_title}
