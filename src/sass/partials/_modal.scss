@@ -148,14 +148,14 @@
   border-radius: 5px;
   background-color: rgba(255, 107, 1, 1);
   color: rgba(255, 255, 255, 1);
-  padding: 2px 10px;
+  padding: 2px 0;
 
   @include tablet {
-    padding: 2px 9px;
+    padding: 2px 0;
   }
 
   @include desktop {
-    padding: 3px 9px;
+    padding: 3px 0;
   }
 }
 
