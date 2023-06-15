@@ -1,5 +1,6 @@
 import './sass/main.scss';
 import './javascript/modal';
+import './javascript/libraryButtons';
 // import './javascript/fetchTrendingMovies';
 // import { fetchTrendingMovies } from './javascript/fetchTrendingMovies';
 //import './javascript/loader.js';
