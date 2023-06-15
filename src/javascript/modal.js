@@ -117,6 +117,11 @@ function fillModal(movie) {
 </div>`,
   );
 
+  const modalWindow = document.querySelector('#modal');
+  modalWindow.addEventListener('click', event => {
+    event.stopPropagation();
+  });
+
   const closeBtn = document.querySelector('#modal-close-button');
   closeBtn.addEventListener('click', closeModal);
 }
