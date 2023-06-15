@@ -1,5 +1,5 @@
 import './sass/main.scss';
-import './javascript/loader.js';
+//import './javascript/loader.js';
 
 const main = document.querySelector('#main');
 let genresArr = [];
