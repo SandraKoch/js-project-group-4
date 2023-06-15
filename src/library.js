@@ -1,7 +1,7 @@
 import './sass/main.scss';
 import './javascript/modal';
-import './javascript/fetchTrendingMovies';
-import { fetchTrendingMovies } from './javascript/fetchTrendingMovies';
+// import './javascript/fetchTrendingMovies';
+// import { fetchTrendingMovies } from './javascript/fetchTrendingMovies';
 //import './javascript/loader.js';
 
 const main = document.querySelector('#main');
