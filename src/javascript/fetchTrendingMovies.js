@@ -141,19 +141,20 @@ function displayMovies(results) {
     );
   });
 }
+if (searchFormElement) {
+  searchFormElement.addEventListener('submit', async e => {
+    e.preventDefault();
+    const trimmedInputValue = searchInputElement.value.trim();
+    const foundMovies = await searchMovies(trimmedInputValue, PAGE);
+    // console.log(foundMovies, 'foundMovies');
 
-searchFormElement.addEventListener('submit', async e => {
-  e.preventDefault();
-  const trimmedInputValue = searchInputElement.value.trim();
-  const foundMovies = await searchMovies(trimmedInputValue, PAGE);
-  // console.log(foundMovies, 'foundMovies');
-
-  if (trimmedInputValue !== '') {
-    handleResults(foundMovies);
-  } else {
-    Notify.info('Please, enter the movie name to start search');
-  }
-});
+    if (trimmedInputValue !== '') {
+      handleResults(foundMovies);
+    } else {
+      Notify.info('Please, enter the movie name to start search');
+    }
+  });
+}
 
 function handleResults(object) {
   if (object.results.length) {
