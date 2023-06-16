@@ -1,4 +1,4 @@
-import './fetchTrendingMovies';
+// import './fetchTrendingMovies';
 import { options } from './fetchTrendingMovies';
 
 const modal = document.querySelector('#backdrop');
