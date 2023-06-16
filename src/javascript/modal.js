@@ -1,8 +1,9 @@
 // import './fetchTrendingMovies';
 import { options } from './fetchTrendingMovies';
+import { refs } from './refs';
 
 const modal = document.querySelector('#backdrop');
-const main = document.querySelector('#main');
+// const main = document.querySelector('#main'); to importujemy z refs
 
 const openModal = event => {
   if (event.target.nodeName !== 'IMG') {
@@ -17,8 +18,7 @@ const closeModal = () => {
   modal.classList.add('is-hidden');
 };
 
-//why event listener is on main?
-main.addEventListener('click', openModal);
+refs.main.addEventListener('click', openModal);
 window.addEventListener('keydown', event => {
   if (event.code === 'Escape') {
     modal.classList.add('is-hidden');
@@ -41,7 +41,7 @@ function fetchMovieInfo(movieId) {
     .catch(error => console.log(error));
 }
 
-main.addEventListener('click', e => {
+refs.main.addEventListener('click', e => {
   fetchMovieInfo(e.target.id)
     .then(movie => {
       fillModal(movie);
