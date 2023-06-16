@@ -6,6 +6,7 @@ const nextButton = document.querySelector('#next-btn');
 const paginationList = document.querySelector('#pagination');
 
 let currentPage = 1;
+let totalPages = 20; 
 
 function updatePaginationButtons() {
   previousButton.disabled = currentPage === 1;
@@ -23,7 +24,7 @@ function createPaginationItem(pageNumber, isActive) {
       performSearch();
     }
   });
-  
+
   if (isActive) {
     button.classList.add('active');
   }
@@ -47,7 +48,8 @@ async function performSearch() {
 
   if (searchResults.results.length) {
     displayMovies(searchResults);
-    generatePagination(searchResults.total_pages);
+    totalPages = searchResults.total_pages; // Przypisanie wartości totalPages
+    generatePagination(totalPages);
   } else {
     main.innerHTML = '';
     Notify.failure('Oops, there are no movies matching your search query. Please try again.');
@@ -106,3 +108,5 @@ nextButton.addEventListener('click', () => {
   currentPage++;
   performSearch();
 });
+
+generatePagination(totalPages)
