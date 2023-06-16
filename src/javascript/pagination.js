@@ -1,12 +1,13 @@
-import { searchMovies, displayMovies, main, searchInputElement } from './fetchTrendingMovies';
+import { searchMovies, displayMovies } from './fetchTrendingMovies';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { refs } from './refs';
 
 const previousButton = document.querySelector('#previous-btn');
 const nextButton = document.querySelector('#next-btn');
 const paginationList = document.querySelector('#pagination');
 
 let currentPage = 1;
-let totalPages = 20; 
+let totalPages = 20;
 
 function updatePaginationButtons() {
   previousButton.disabled = currentPage === 1;
@@ -43,7 +44,7 @@ function createPaginationEllipsis() {
 }
 
 async function performSearch() {
-  const query = searchInputElement.value.trim();
+  const query = refs.searchInputElement.value.trim();
   const searchResults = await searchMovies(query, currentPage);
 
   if (searchResults.results.length) {
@@ -51,7 +52,7 @@ async function performSearch() {
     totalPages = searchResults.total_pages; // Przypisanie wartości totalPages
     generatePagination(totalPages);
   } else {
-    main.innerHTML = '';
+    refs.main.innerHTML = '';
     Notify.failure('Oops, there are no movies matching your search query. Please try again.');
   }
 }
@@ -109,4 +110,4 @@ nextButton.addEventListener('click', () => {
   performSearch();
 });
 
-generatePagination(totalPages)
+generatePagination(totalPages);
