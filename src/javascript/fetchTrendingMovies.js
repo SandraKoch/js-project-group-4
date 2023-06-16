@@ -162,10 +162,10 @@ export function initTrendingMovies() {
                   ${film.original_title}
                 </span>
                 <div>
-                <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
+                <span id="main__movie-genres" class="main__movie-data">{movieGenres}</span>
                 <span class="main__movie-data">|</span>
                 <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
-                  ${releaseDate}
+                  {releaseDate}
                 </span>
                 </div>
               </figcaption>
