@@ -18,18 +18,21 @@
   z-index: 9999;
   width: 280px;
   max-height: 940px;
-  top: 20px;
   align-items: center;
   justify-content: center;
   padding-top: 48px;
+  padding-bottom: 48px;
   font-family: var(--font);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
 
   @include tablet {
-    display: flex;
     width: 704px;
     max-height: 552px;
-    padding: 40px 72px 40px 36px;
     top: 219px;
+    padding-bottom: 0;
   }
 
   @include desktop {
@@ -57,17 +60,36 @@
   }
 }
 
+.modal-content {
+  max-height: 473px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 278px;
+  padding-top: 10px;
+  border-radius: 5px;
+  box-shadow: inset 0px 70px 20px -80px rgba(66, 68, 90, 1),
+    inset 0px -70px 20px -80px rgba(66, 68, 90, 1);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include tablet {
+    max-height: 940px;
+    overflow: hidden;
+    box-shadow: none;
+    display: flex;
+    width: 704px;
+    margin: 10px 20px 0;
+    padding: 0;
+    gap: 50px;
+  }
+}
+
 .image-box {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  @include tablet {
-    margin-right: 68px;
-  }
-
-  @include desktop {
-  }
 
   &__image {
     background-color: #0ff;
@@ -84,7 +106,6 @@
     @include desktop {
       width: 342px;
       height: 478px;
-      margin: 0;
     }
   }
 }
@@ -178,10 +199,6 @@
 
 .movie-description {
   margin-bottom: 20px;
-
-  // @include desktop {
-  //   padding-bottom: 37px;
-  // }
 
   &__about {
     font-size: 12px;
