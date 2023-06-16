@@ -58,6 +58,7 @@ function fillModal(movie) {
     </g>
     </svg>
     </button>
+    <div class="modal-content">
 <div id="image-box" class="image-box">
   <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" id="image-box__image" class="image-box__image" />
 </div>
@@ -114,6 +115,7 @@ function fillModal(movie) {
     <button type="button" id="queue-button" class="queue-button button">ADD TO QUEUE</button>
   </div>
 </div>
+<div>
 </div>`,
   );
 
