@@ -1,23 +1,21 @@
-// import { API_KEY } from './config';
+import { API_KEY, ACCESS_TOKEN, PAGE } from './config';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { refs } from './refs';
+import { options } from './config';
 
-const ACCESS_TOKEN =
-  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE';
-let PAGE = 1;
-
-export const searchFormElement = document.querySelector('#search-form');
-export const searchInputElement = document.querySelector('#search-input');
-export const main = document.querySelector('#main');
+// export const searchFormElement = document.querySelector('#search-form');
+// export const searchInputElement = document.querySelector('#search-input');
+// export const main = document.querySelector('#main');
 let genresArr = [];
 
 // move to separate file
-export const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer ' + ACCESS_TOKEN,
-  },
-};
+// export const options = {
+//   method: 'GET',
+//   headers: {
+//     accept: 'application/json',
+//     Authorization: 'Bearer ' + ACCESS_TOKEN,
+//   },
+// };
 
 //search movies
 export async function searchMovies(query, page) {
@@ -35,10 +33,10 @@ export async function searchMovies(query, page) {
 export function displayMovies(results) {
   console.log(genresArr, 'genresArr');
   const moviesArr = results.results;
-  main.innerHTML = '';
+  refs.main.innerHTML = '';
   moviesArr.forEach(film => {
     console.log('film.poster_path', film.poster_path);
-    main.insertAdjacentHTML(
+    refs.main.insertAdjacentHTML(
       'beforeend',
       `
       <ul id="main__list" class="main__list">
@@ -90,7 +88,7 @@ export function initTrendingMovies() {
     //first promise
     genresArr = genresRes.genres;
     //second promise
-    main.innerHTML = '';
+    refs.main.innerHTML = '';
     console.log(popularRes, 'popularRes');
     popularRes.results.forEach((film, filmIndex) => {
       // Get the genre names based on genre IDs
@@ -110,7 +108,7 @@ export function initTrendingMovies() {
 
       // drawMovieCards();
 
-      main.insertAdjacentHTML(
+      refs.main.insertAdjacentHTML(
         'beforeend',
         `
               <ul id="main__list" class="main__list">
@@ -141,11 +139,11 @@ export function initTrendingMovies() {
   function displayMovies(results) {
     console.log(genresArr, 'genresArr');
     const moviesArr = results.results;
-    main.innerHTML = '';
+    refs.main.innerHTML = '';
     moviesArr.forEach(film => {
       // console.log('film.poster_path', film.poster_path);
       // drawMovieCards();
-      main.insertAdjacentHTML(
+      refs.main.insertAdjacentHTML(
         'beforeend',
         `
         <ul id="main__list" class="main__list">
@@ -177,10 +175,10 @@ export function initTrendingMovies() {
     });
   }
 
-  if (searchFormElement) {
-    searchFormElement.addEventListener('submit', async e => {
+  if (refs.searchFormElement) {
+    refs.searchFormElement.addEventListener('submit', async e => {
       e.preventDefault();
-      const trimmedInputValue = searchInputElement.value.trim();
+      const trimmedInputValue = refs.searchInputElement.value.trim();
       const foundMovies = await searchMovies(trimmedInputValue, PAGE);
       // console.log(foundMovies, 'foundMovies');
 
