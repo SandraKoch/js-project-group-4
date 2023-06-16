@@ -71,34 +71,27 @@ export function displayMovies(results) {
 
 export function initTrendingMovies() {
   function fetchGenres() {
-    return (
-      fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
-        .then(response => response.json())
-        // .then(response => {
-        //   genresArr = response.genres;
-        // })
-        .catch(err => console.error(err))
-    );
+    return fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
+      .then(response => response.json())
+      .catch(err => console.error(err));
   }
 
   function fetchPopular() {
-    return (
-      fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
-        .then(response => response.json())
-        // .then(({ results }) => {
-        //
-        .catch(err => console.error(err))
-    );
+    return fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
+      .then(response => response.json())
+      .catch(err => console.error(err));
   }
+
+  // function findGenreById()
 
   Promise.all([fetchGenres(), fetchPopular()]).then(res => {
     console.log('res', res);
     const [genresRes, popularRes] = res;
     //first promise
     genresArr = genresRes.genres;
-
     //second promise
     main.innerHTML = '';
+    console.log(popularRes, 'popularRes');
     popularRes.results.forEach((film, filmIndex) => {
       // Get the genre names based on genre IDs
       const movieGenres = film.genre_ids
@@ -183,6 +176,7 @@ export function initTrendingMovies() {
       );
     });
   }
+
   if (searchFormElement) {
     searchFormElement.addEventListener('submit', async e => {
       e.preventDefault();
@@ -198,11 +192,11 @@ export function initTrendingMovies() {
     });
   }
 
-  function handleResults(object) {
-    if (object.results.length) {
-      displayMovies(object);
+  function handleResults(apiObject) {
+    if (apiObject.results.length) {
+      displayMovies(apiObject);
       // console.log(object, 'object');
-      const total = object.total_results;
+      const total = apiObject.total_results;
       Notify.success(`Hooray! You have found ${total} movies matching your query`);
     } else {
       Notify.failure('Oops, there are no movies matching your search query. Please try again.');
