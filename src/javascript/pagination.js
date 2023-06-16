@@ -1,78 +1,108 @@
-const previousBtn = document.getElementById('previous-btn');
-const nextBtn = document.getElementById('next-btn');
-const paginationList = document.getElementById('pagination');
+import { searchMovies, displayMovies, main, searchInputElement } from './fetchTrendingMovies';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const totalPages = 20;
+const previousButton = document.querySelector('#previous-btn');
+const nextButton = document.querySelector('#next-btn');
+const paginationList = document.querySelector('#pagination');
+
 let currentPage = 1;
 
-function generatePagination() {
+function updatePaginationButtons() {
+  previousButton.disabled = currentPage === 1;
+  nextButton.disabled = currentPage === totalPages;
+}
+
+function createPaginationItem(pageNumber, isActive) {
+  const listItem = document.createElement('li');
+  const button = document.createElement('button');
+  button.classList.add('pagination__element', 'pagination__element--button');
+  button.textContent = pageNumber;
+  button.addEventListener('click', () => {
+    if (pageNumber !== currentPage) {
+      currentPage = pageNumber;
+      performSearch();
+    }
+  });
+  
+  if (isActive) {
+    button.classList.add('active');
+  }
+
+  listItem.appendChild(button);
+  return listItem;
+}
+
+function createPaginationEllipsis() {
+  const listItem = document.createElement('li');
+  const ellipsisSpan = document.createElement('span');
+  ellipsisSpan.classList.add('pagination__element', 'pagination__element--ellipsis');
+  ellipsisSpan.textContent = '...';
+  listItem.appendChild(ellipsisSpan);
+  return listItem;
+}
+
+async function performSearch() {
+  const query = searchInputElement.value.trim();
+  const searchResults = await searchMovies(query, currentPage);
+
+  if (searchResults.results.length) {
+    displayMovies(searchResults);
+    generatePagination(searchResults.total_pages);
+  } else {
+    main.innerHTML = '';
+    Notify.failure('Oops, there are no movies matching your search query. Please try again.');
+  }
+}
+
+function generatePagination(totalPages) {
   paginationList.innerHTML = '';
 
-  if (currentPage > 3) {
-    createPaginationButton(1);
-    if (currentPage > 4) {
-      createEllipsisButton();
+  const maxVisibleButtons = 7;
+  const maxVisibleButtonsHalf = Math.floor(maxVisibleButtons / 2);
+
+  let firstVisiblePage, lastVisiblePage;
+
+  if (currentPage <= maxVisibleButtonsHalf) {
+    firstVisiblePage = 1;
+    lastVisiblePage = Math.min(maxVisibleButtons, totalPages);
+  } else if (currentPage > totalPages - maxVisibleButtonsHalf) {
+    firstVisiblePage = 1;
+    lastVisiblePage = totalPages;
+    if (totalPages > maxVisibleButtons) {
+      firstVisiblePage = totalPages - maxVisibleButtons + 1;
+      paginationList.appendChild(createPaginationItem(1, false));
+      paginationList.appendChild(createPaginationEllipsis());
     }
+  } else {
+    firstVisiblePage = currentPage - maxVisibleButtonsHalf + 1;
+    lastVisiblePage = currentPage + maxVisibleButtonsHalf - 1;
+    paginationList.appendChild(createPaginationItem(1, false));
+    paginationList.appendChild(createPaginationEllipsis());
   }
 
-  const startPage = Math.max(currentPage - 2, 1);
-  const endPage = Math.min(currentPage + 2, totalPages);
-
-  for (let i = startPage; i <= endPage; i++) {
-    createPaginationButton(i);
+  for (let i = firstVisiblePage; i <= lastVisiblePage; i++) {
+    const isActive = i === currentPage;
+    paginationList.appendChild(createPaginationItem(i, isActive));
   }
 
-  if (currentPage < totalPages - 2) {
-    if (currentPage < totalPages - 3) {
-      createEllipsisButton();
-    }
-    createPaginationButton(totalPages);
+  if (lastVisiblePage < totalPages) {
+    paginationList.appendChild(createPaginationEllipsis());
   }
 
-  previousBtn.disabled = currentPage === 1;
-  nextBtn.disabled = currentPage === totalPages;
+  const lastPageItem = createPaginationItem(totalPages, false);
+  paginationList.appendChild(lastPageItem);
+
+  updatePaginationButtons();
 }
 
-function createPaginationButton(pageNumber) {
-  const li = document.createElement('li');
-  const button = document.createElement('button');
-  button.innerText = pageNumber;
-  button.classList.add('pagination__element');
-
-  if (pageNumber === currentPage) {
-    button.classList.add('pagination__element--active');
-  }
-
-  button.addEventListener('click', () => {
-    currentPage = pageNumber;
-    generatePagination();
-  });
-
-  li.appendChild(button);
-  paginationList.appendChild(li);
-}
-
-function createEllipsisButton() {
-  const li = document.createElement('li');
-  const span = document.createElement('span');
-  span.innerText = '...';
-  li.appendChild(span);
-  paginationList.appendChild(li);
-}
-
-generatePagination();
-
-// Dodaj obsługę kliknięcia w strzałki
-previousBtn.addEventListener('click', () => {
+previousButton.addEventListener('click', () => {
   if (currentPage > 1) {
     currentPage--;
-    generatePagination();
+    performSearch();
   }
 });
 
-nextBtn.addEventListener('click', () => {
-  if (currentPage < totalPages) {
-    currentPage++;
-    generatePagination();
-  }
+nextButton.addEventListener('click', () => {
+  currentPage++;
+  performSearch();
 });
