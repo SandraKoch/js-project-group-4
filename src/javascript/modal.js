@@ -1,5 +1,5 @@
 // import './fetchTrendingMovies';
-import { options } from './fetchTrendingMovies';
+import { options } from './config';
 import { refs } from './refs';
 
 const modal = document.querySelector('#backdrop');

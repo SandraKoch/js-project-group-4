@@ -3,19 +3,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { refs } from './refs';
 import { options } from './config';
 
-// export const searchFormElement = document.querySelector('#search-form');
-// export const searchInputElement = document.querySelector('#search-input');
-// export const main = document.querySelector('#main');
 let genresArr = [];
-
-// move to separate file
-// export const options = {
-//   method: 'GET',
-//   headers: {
-//     accept: 'application/json',
-//     Authorization: 'Bearer ' + ACCESS_TOKEN,
-//   },
-// };
 
 //search movies
 export async function searchMovies(query, page) {
@@ -29,6 +17,8 @@ export async function searchMovies(query, page) {
     })
     .catch(err => console.error(err));
 }
+
+export function drawMovieCards(data) {}
 
 export function displayMovies(results) {
   console.log(genresArr, 'genresArr');
@@ -105,8 +95,6 @@ export function initTrendingMovies() {
         month: undefined,
         day: undefined,
       });
-
-      // drawMovieCards();
 
       refs.main.insertAdjacentHTML(
         'beforeend',
