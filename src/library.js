@@ -1,11 +1,12 @@
 import './sass/main.scss';
 import './javascript/modal';
 import './javascript/libraryButtons';
+import { refs } from './javascript/refs';
 // import './javascript/fetchTrendingMovies';
 // import { fetchTrendingMovies } from './javascript/fetchTrendingMovies';
 //import './javascript/loader.js';
 
-const main = document.querySelector('#main');
+// const main = document.querySelector('#main'); to importujemy z refs
 let genresArr = [];
 
 const loadWatchedFromLS = key => {
@@ -27,7 +28,7 @@ const loadWatchedFromLS = key => {
         month: undefined,
         day: undefined,
       });
-      main.insertAdjacentHTML(
+      refs.main.insertAdjacentHTML(
         'beforeend',
         `
         <ul id="main__list" class="main__list">
@@ -64,12 +65,12 @@ const userWatched = document.querySelector('#user-watched-btn');
 
 userQueue.addEventListener('click', () => {
   console.log('queue btn');
-  main.innerHTML = ' ';
+  refs.main.innerHTML = ' ';
   loadWatchedFromLS('queue');
 });
 userWatched.addEventListener('click', () => {
   console.log('watched btn');
-  main.innerHTML = ' ';
+  refs.main.innerHTML = ' ';
   loadWatchedFromLS('watched');
 });
 
