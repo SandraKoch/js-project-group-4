@@ -1,4 +1,4 @@
-import './fetchTrendingMovies';
+// import './fetchTrendingMovies';
 import { options } from './fetchTrendingMovies';
 
 const modal = document.querySelector('#backdrop');
@@ -17,6 +17,7 @@ const closeModal = () => {
   modal.classList.add('is-hidden');
 };
 
+//why event listener is on main?
 main.addEventListener('click', openModal);
 window.addEventListener('keydown', event => {
   if (event.code === 'Escape') {
@@ -24,12 +25,15 @@ window.addEventListener('keydown', event => {
   }
   modal.innerHTML = '';
 });
+
 modal.addEventListener('click', event => {
   if (event.target === modal) {
     modal.classList.add('is-hidden');
   }
   modal.innerHTML = '';
 });
+
+//is it necessary to create a new fetch ?
 
 function fetchMovieInfo(movieId) {
   return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, options)
