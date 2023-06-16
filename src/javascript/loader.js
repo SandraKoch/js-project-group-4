@@ -25,13 +25,6 @@ function performSearch() {
 
     const apiKey = '81805be47c20a9977d0669120b6add4a';
 
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-      },
-    };
-
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
       query,
     )}&api_key=${apiKey}`;
