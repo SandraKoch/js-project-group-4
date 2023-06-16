@@ -18,7 +18,47 @@ export async function searchMovies(query, page) {
     .catch(err => console.error(err));
 }
 
-export function drawMovieCards(data) {}
+export function drawMovieCards(movieData) {
+  const movieGenres = movieData.genre_ids
+    .map(genreId => {
+      const genre = genresArr.find(genre => genre.id === genreId);
+      return genre ? genre.name.toString() : '';
+    })
+    .join(', ');
+
+  // Format the release date
+  const releaseDate = new Date(movieData.release_date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: undefined,
+    day: undefined,
+  });
+
+  refs.main.insertAdjacentHTML(
+    'beforeend',
+    `
+          <ul id="main__list" class="main__list">
+            <li id="main__list-item" class="main__list-item">
+              <figure id="main__movie" class="main__movie">
+                <img id="${movieData.id}" class="main__image"
+                  src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${movieData.title}" />
+                <figcaption id="main__caption" class="main__caption">
+                  <span id="main__movie-name" class="main__movie-name">
+                    ${movieData.original_title}
+                  </span>
+                  <div>
+                  <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
+                  <span class="main__movie-data">|</span>
+                  <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
+                    ${releaseDate}
+                  </span>
+                  </div>
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+        `,
+  );
+}
 
 export function displayMovies(results) {
   console.log(genresArr, 'genresArr');
@@ -82,45 +122,45 @@ export function initTrendingMovies() {
     console.log(popularRes, 'popularRes');
     popularRes.results.forEach((film, filmIndex) => {
       // Get the genre names based on genre IDs
-      const movieGenres = film.genre_ids
-        .map(genreId => {
-          const genre = genresArr.find(genre => genre.id === genreId);
-          return genre ? genre.name.toString() : '';
-        })
-        .join(', ');
+      // const movieGenres = film.genre_ids
+      //   .map(genreId => {
+      //     const genre = genresArr.find(genre => genre.id === genreId);
+      //     return genre ? genre.name.toString() : '';
+      //   })
+      //   .join(', ');
 
-      // Format the release date
-      const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: undefined,
-        day: undefined,
-      });
-
-      refs.main.insertAdjacentHTML(
-        'beforeend',
-        `
-              <ul id="main__list" class="main__list">
-                <li id="main__list-item" class="main__list-item">
-                  <figure id="main__movie" class="main__movie">
-                    <img id="${film.id}" class="main__image"
-                      src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
-                    <figcaption id="main__caption" class="main__caption">
-                      <span id="main__movie-name" class="main__movie-name">
-                        ${film.original_title}
-                      </span>
-                      <div>
-                      <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
-                      <span class="main__movie-data">|</span>
-                      <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
-                        ${releaseDate}
-                      </span>
-                      </div>
-                    </figcaption>
-                  </figure>
-                </li>
-              </ul>
-            `,
-      );
+      // // Format the release date
+      // const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
+      //   year: 'numeric',
+      //   month: undefined,
+      //   day: undefined,
+      // });
+      drawMovieCards(film);
+      // refs.main.insertAdjacentHTML(
+      //   'beforeend',
+      //   `
+      //         <ul id="main__list" class="main__list">
+      //           <li id="main__list-item" class="main__list-item">
+      //             <figure id="main__movie" class="main__movie">
+      //               <img id="${film.id}" class="main__image"
+      //                 src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
+      //               <figcaption id="main__caption" class="main__caption">
+      //                 <span id="main__movie-name" class="main__movie-name">
+      //                   ${film.original_title}
+      //                 </span>
+      //                 <div>
+      //                 <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
+      //                 <span class="main__movie-data">|</span>
+      //                 <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
+      //                   ${releaseDate}
+      //                 </span>
+      //                 </div>
+      //               </figcaption>
+      //             </figure>
+      //           </li>
+      //         </ul>
+      //       `,
+      // );
     });
   });
 
