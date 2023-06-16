@@ -5,9 +5,9 @@ const ACCESS_TOKEN =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTgwNWJlNDdjMjBhOTk3N2QwNjY5MTIwYjZhZGQ0YSIsInN1YiI6IjY0ODIyOWYyZDJiMjA5MDBlYmJmM2RiOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QBYkVP1Y4DcB7g5RndWRVtYQ8Tp2I0wKn0TtL28dElE';
 let PAGE = 1;
 
-const searchFormElement = document.querySelector('#search-form');
-const searchInputElement = document.querySelector('#search-input');
-const main = document.querySelector('#main');
+export const searchFormElement = document.querySelector('#search-form');
+export const searchInputElement = document.querySelector('#search-input');
+export const main = document.querySelector('#main');
 let genresArr = [];
 
 export const options = {
@@ -92,7 +92,7 @@ Promise.all([fetchGenres(), fetchPopular()]).then(res => {
 });
 
 //search movies
-async function searchMovies(query, page) {
+export async function searchMovies(query, page) {
   return fetch(
     `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&page=${page}`,
     options,
@@ -104,7 +104,7 @@ async function searchMovies(query, page) {
     .catch(err => console.error(err));
 }
 
-function displayMovies(results) {
+export function displayMovies(results) {
   console.log(genresArr, 'genresArr');
   const moviesArr = results.results;
   main.innerHTML = '';

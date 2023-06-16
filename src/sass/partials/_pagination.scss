@@ -28,17 +28,11 @@
     cursor: pointer;
   }
 
-  &__element--active {
-    background-color: #ff6b08;
-    color: white;
-  }
-
   &__element--button {
     width: 40px;
     height: 40px;
     border-radius: 5px;
     background-color: #f7f7f7;
-    background-image: url('/src/images/arrow-left.png');
     background-repeat: no-repeat;
     background-position: center center;
   }
@@ -54,4 +48,11 @@
   &__element:not(.pagination__element--active):not(.pagination__element--button) {
     background-color: transparent;
   }
+}
+.active {
+  background-color: #ff6b08;
+  color: white;
+}
+#previous-btn{
+  background-image: url('/src/images/arrow-left.png');
 }
