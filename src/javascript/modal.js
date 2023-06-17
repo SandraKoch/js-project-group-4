@@ -2,7 +2,7 @@
 import { options } from './config';
 import { refs } from './refs';
 
-const modal = document.querySelector('#backdrop');
+const backdrop = document.querySelector('#backdrop');
 // const main = document.querySelector('#main'); to importujemy z refs
 
 const openModal = event => {
@@ -10,27 +10,27 @@ const openModal = event => {
     return;
   }
 
-  modal.classList.remove('is-hidden');
+  backdrop.classList.remove('is-hidden');
 };
 
 const closeModal = () => {
-  modal.innerHTML = '';
-  modal.classList.add('is-hidden');
+  backdrop.innerHTML = '';
+  backdrop.classList.add('is-hidden');
 };
 
 refs.main.addEventListener('click', openModal);
 window.addEventListener('keydown', event => {
   if (event.code === 'Escape') {
-    modal.classList.add('is-hidden');
+    backdrop.classList.add('is-hidden');
   }
-  modal.innerHTML = '';
+  backdrop.innerHTML = '';
 });
 
-modal.addEventListener('click', event => {
+backdrop.addEventListener('click', event => {
   if (event.target === modal) {
-    modal.classList.add('is-hidden');
+    backdrop.classList.add('is-hidden');
   }
-  modal.innerHTML = '';
+  backdrop.innerHTML = '';
 });
 
 //is it necessary to create a new fetch ?
@@ -51,7 +51,7 @@ refs.main.addEventListener('click', e => {
 });
 
 function fillModal(movie) {
-  modal.insertAdjacentHTML(
+  backdrop.insertAdjacentHTML(
     'beforeend',
     `<div id="modal" class="modal">
     <button id="modal-close-button" class="modal-close-button">
@@ -120,7 +120,8 @@ function fillModal(movie) {
   </div>
 </div>
 <div>
-</div>`,
+</div>
+<div class="scroll-down"></div>`,
   );
 
   const modalWindow = document.querySelector('#modal');
