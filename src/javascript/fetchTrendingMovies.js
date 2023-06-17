@@ -122,6 +122,8 @@ export function initTrendingMovies() {
 
       if (trimmedInputValue !== '') {
         handleResults(foundMovies);
+        const genresContainer = document.getElementById('genres');
+        genresContainer.style.display = 'none';
       } else {
         Notify.info('Please, enter the movie name to start search');
       }
