@@ -1,0 +1,27 @@
+#genres {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.button-container button {
+    margin: 0 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: #e0e0e0;
+}
