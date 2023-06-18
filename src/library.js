@@ -2,9 +2,12 @@ import './sass/main.scss';
 import './javascript/modal';
 import './javascript/libraryButtons';
 import { refs } from './javascript/refs';
+import { searchMoviesByGenre } from './javascript/fetchTrendingMovies';
 
 // const main = document.querySelector('#main'); to importujemy z refs
 let genresArr = [];
+
+// searchMoviesByGenre(genreId);
 
 const loadWatchedFromLS = key => {
   try {
@@ -53,7 +56,7 @@ const loadWatchedFromLS = key => {
     });
     return parsedArr;
   } catch (e) {
-    alert(`There was a mistake ${e.toString()}`);
+    console.log(`There was a mistake ${e.toString()}`);
   }
 };
 
@@ -68,12 +71,12 @@ const userWatched = document.querySelector('#user-watched-btn');
 // });
 
 userQueue.addEventListener('click', () => {
-  console.log('queue btn');
+  // console.log('queue btn');
   refs.main.innerHTML = ' ';
   loadWatchedFromLS('queue');
 });
 userWatched.addEventListener('click', () => {
-  console.log('watched btn');
+  // console.log('watched btn');
   refs.main.innerHTML = ' ';
   loadWatchedFromLS('watched');
 });
