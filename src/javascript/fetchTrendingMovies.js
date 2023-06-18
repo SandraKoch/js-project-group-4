@@ -4,6 +4,7 @@ import { refs } from './refs';
 import { options } from './config';
 
 let genresArr = [];
+let currentGenreId = null;
 
 //search movies
 export async function searchMovies(query, page) {
@@ -72,6 +73,8 @@ export function displayMovies(results) {
 }
 
 export function initTrendingMovies() {
+  const PAGE = 1; // Ustaw odpowiednią wartość strony
+
   function fetchGenres() {
     return fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
       .then(response => response.json())
@@ -95,6 +98,19 @@ export function initTrendingMovies() {
     console.log(popularRes, 'popularRes');
 
     displayMovies(popularRes);
+
+    // Create genre buttons
+    const genresContainer = document.getElementById('genres');
+    genresArr.forEach(genre => {
+      const button = document.createElement('button');
+      button.classList.add('button');
+      button.textContent = genre.name;
+      button.addEventListener('click', () => {
+        currentGenreId = genre.id;
+        searchMoviesByGenre(currentGenreId, PAGE); // Przekazanie wartości strony
+      });
+      genresContainer.appendChild(button);
+    });
   });
 
   if (refs.searchFormElement) {
@@ -106,11 +122,23 @@ export function initTrendingMovies() {
 
       if (trimmedInputValue !== '') {
         handleResults(foundMovies);
+        const genresContainer = document.getElementById('genres');
+        genresContainer.style.display = 'none';
       } else {
         Notify.info('Please, enter the movie name to start search');
       }
     });
   }
+}
+
+async function searchMoviesByGenre(genreId, page) {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&include_adult=false&page=${page}`,
+    options
+  );
+  const data = await response.json();
+  displayMovies(data);
+}
 
   function handleResults(apiObject) {
     if (apiObject.results.length) {
@@ -121,5 +149,5 @@ export function initTrendingMovies() {
     } else {
       Notify.failure('Oops, there are no movies matching your search query. Please try again.');
     }
-  }
 }
+
