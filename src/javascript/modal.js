@@ -176,15 +176,16 @@ const watchedQueue = movie => {
 
   const addToLS = (movie, key) => {
     const arr = loadFromLS(key);
-    // console.log(arr);
-    arr.push(movie);
-    const jsonMovie = JSON.stringify(arr);
-    localStorage.setItem(key, jsonMovie);
-    if (arr.filter(movieID => movieID !== movie.id)) {
-      // console.log(movie.id);
-      // const newArr = arr;
-      // console.log(newArr);
-      console.log(arr);
+    let newArr = [];
+    if (arr.find(movieInArr => movieInArr.id === movie.id) !== undefined) {
+      newArr = arr.filter(film => film.id !== movie.id);
+      const jsonMovie = JSON.stringify(newArr);
+      localStorage.setItem(key, jsonMovie);
+    } else {
+      newArr = [...arr];
+      const updatedArr = [...arr, movie];
+      const jsonMovie = JSON.stringify(updatedArr);
+      localStorage.setItem(key, jsonMovie);
     }
   };
 
