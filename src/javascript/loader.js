@@ -1,17 +1,17 @@
-const loader = document.getElementById('loader');
-const searchForm = document.getElementById('search-form');
-const searchInput = document.getElementById('search-input');
+import { refs } from './refs';
+import { API_KEY} from './config';
+
 
 function showLoader() {
-  loader.classList.add('active');
+  refs.loader.classList.add('active');
 }
 
 function hideLoader() {
-  loader.classList.remove('active');
+  refs.loader.classList.remove('active');
 }
 
 function performSearch() {
-  const query = searchInput.value.trim();
+  const query = refs.searchInputElement.value.trim();
   if (query !== '') {
     const xhr = new XMLHttpRequest();
 
@@ -23,11 +23,9 @@ function performSearch() {
       hideLoader();
     });
 
-    const apiKey = '81805be47c20a9977d0669120b6add4a';
-
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
       query,
-    )}&api_key=${apiKey}`;
+    )}&api_key=${API_KEY}`;
     xhr.open('GET', url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
@@ -47,7 +45,7 @@ function performSearch() {
   }
 }
 
-searchForm.addEventListener('submit', function (e) {
+refs.searchFormElement.addEventListener('submit', function (e) {
   e.preventDefault();
   performSearch();
 });
