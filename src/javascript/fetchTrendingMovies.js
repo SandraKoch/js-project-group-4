@@ -6,7 +6,6 @@ import { options } from './config';
 let genresArr = [];
 let currentGenreId = null;
 
-//search movies
 export async function searchMovies(query, page) {
   return fetch(
     `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&page=${page}`,
@@ -20,12 +19,11 @@ export async function searchMovies(query, page) {
 }
 
 export function displayMovies(results) {
-  console.log(genresArr, 'genresArr');
   const moviesArr = results.results;
   refs.main.innerHTML = '';
 
   moviesArr.forEach(film => {
-    console.log('film.poster_path', film.poster_path);
+    // console.log('film.poster_path', film.poster_path);
 
     const movieGenres = film.genre_ids
       .map(genreId => {
@@ -34,7 +32,6 @@ export function displayMovies(results) {
       })
       .join(', ');
 
-    // Format the release date
     const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: undefined,
@@ -44,8 +41,8 @@ export function displayMovies(results) {
     refs.main.insertAdjacentHTML(
       'beforeend',
       `
-      <ul id="main__list" class="main__list">
-        <li id="main__list-item" class="main__list-item">
+      <li id="main__element" class="main__element">
+        <div id="main__item" class="main__item">
           <figure id="main__movie" class="main__movie">
             <img id="${film.id}" class="main__image"
               src="${
@@ -118,7 +115,6 @@ export function initTrendingMovies() {
       e.preventDefault();
       const trimmedInputValue = refs.searchInputElement.value.trim();
       const foundMovies = await searchMovies(trimmedInputValue, PAGE);
-      // console.log(foundMovies, 'foundMovies');
 
       if (trimmedInputValue !== '') {
         handleResults(foundMovies);
@@ -143,7 +139,6 @@ async function searchMoviesByGenre(genreId, page) {
 function handleResults(apiObject) {
   if (apiObject.results.length) {
     displayMovies(apiObject);
-    // console.log(object, 'object');
     const total = apiObject.total_results;
     Notify.success(`Hooray! You have found ${total} movies matching your query`);
   } else {

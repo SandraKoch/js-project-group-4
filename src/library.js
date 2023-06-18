@@ -21,8 +21,8 @@ const loadWatchedFromLS = key => {
       refs.main.insertAdjacentHTML(
         'beforeend',
         `
-        <ul id="main__list" class="main__list">
-          <li id="main__list-item" class="main__list-item">
+        <li id="main__element" class="main__element">
+          <div id="main__item" class="main__item">
             <figure id="main__movie" class="main__movie">
               <img id="${film.id}" class="main__image"
                 src="https://image.tmdb.org/t/p/w500${film.poster_path}" alt="${film.title}" />
