@@ -12,17 +12,14 @@ let genresArr = [];
 const loadWatchedFromLS = key => {
   try {
     const parsedArr = JSON.parse(localStorage.getItem(key));
-    console.log(parsedArr);
+    // console.log(parsedArr);
     if (parsedArr === null) return;
     parsedArr.forEach(film => {
-      console.log(film);
-      console.log(genresArr);
-      const movieGenres = film.genres
-        .map(genreId => {
-          const genre = genresArr.find(genre => genre.id === genreId);
-          return genre ? genre.name.toString() : '';
-        })
-        .join(', ');
+      const movieGenresID = film.genres;
+      let movieGenresNames = [];
+      movieGenresNames = movieGenresID.map(genre => genre.name).join(', ');
+
+      console.log(movieGenresNames);
       const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
         year: 'numeric',
         month: undefined,
@@ -41,7 +38,7 @@ const loadWatchedFromLS = key => {
                   ${film.original_title}
                 </span>
                 <div>
-                <span id="main__movie-genres" class="main__movie-data">${movieGenres}</span>
+                <span id="main__movie-genres" class="main__movie-data">${movieGenresNames}</span>
                 <span class="main__movie-data">|</span>
                 <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
                 ${releaseDate}
