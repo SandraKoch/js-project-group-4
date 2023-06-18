@@ -146,16 +146,14 @@ const saveToLS = movie => {
 const loadFromLS = key => {
   let arr = JSON.parse(localStorage.getItem(key));
   if (arr === null) arr = [];
-
   return arr;
 };
 
 const recognitionWatchFromLS = movie => {
   const watchedBtn = document.querySelector('#watched-button');
   const watchedArr = loadFromLS('watched');
+  watchedBtn.innerHTML = 'ADD TO WATCHED';
   if (watchedArr.find(movieInArr => movieInArr.id === movie.id)) {
-    // console.log('Is on watchlist');
-    // console.log(watchedArr, typeof watchedArr);
     watchedBtn.innerHTML = 'REMOVE FROM WATCHED';
   }
 };
@@ -163,9 +161,8 @@ const recognitionWatchFromLS = movie => {
 const recognitionQueueFromLS = movie => {
   const queueBtn = document.querySelector('#queue-button');
   const queueArr = loadFromLS('queue');
+  queueBtn.innerHTML = 'ADD TO QUEUE';
   if (queueArr.find(movieInArr => movieInArr.id === movie.id)) {
-    // console.log('Is on queuelist');
-    // console.log(queueArr, typeof queueArr);
     queueBtn.innerHTML = 'REMOVE FROM QUEUE';
   }
 };
@@ -182,7 +179,6 @@ const watchedQueue = movie => {
       const jsonMovie = JSON.stringify(newArr);
       localStorage.setItem(key, jsonMovie);
     } else {
-      newArr = [...arr];
       const updatedArr = [...arr, movie];
       const jsonMovie = JSON.stringify(updatedArr);
       localStorage.setItem(key, jsonMovie);
@@ -198,5 +194,3 @@ const watchedQueue = movie => {
     recognitionQueueFromLS(movie);
   });
 };
-
-const removeFromLS = movieInLS => {};
