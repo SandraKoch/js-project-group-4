@@ -134,20 +134,19 @@ export function initTrendingMovies() {
 async function searchMoviesByGenre(genreId, page) {
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&include_adult=false&page=${page}`,
-    options
+    options,
   );
   const data = await response.json();
   displayMovies(data);
 }
 
-  function handleResults(apiObject) {
-    if (apiObject.results.length) {
-      displayMovies(apiObject);
-      // console.log(object, 'object');
-      const total = apiObject.total_results;
-      Notify.success(`Hooray! You have found ${total} movies matching your query`);
-    } else {
-      Notify.failure('Oops, there are no movies matching your search query. Please try again.');
-    }
+function handleResults(apiObject) {
+  if (apiObject.results.length) {
+    displayMovies(apiObject);
+    // console.log(object, 'object');
+    const total = apiObject.total_results;
+    Notify.success(`Hooray! You have found ${total} movies matching your query`);
+  } else {
+    Notify.failure('Oops, there are no movies matching your search query. Please try again.');
+  }
 }
-

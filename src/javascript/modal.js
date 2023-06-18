@@ -1,9 +1,12 @@
 // import './fetchTrendingMovies';
 import { options } from './config';
 import { refs } from './refs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const backdrop = document.querySelector('#backdrop');
 // const main = document.querySelector('#main'); to importujemy z refs
+// const watchedBtn = document.querySelector('#watched-button');
+// const queueBtn = document.querySelector('#queue-button');
 
 const openModal = event => {
   if (event.target.nodeName !== 'IMG') {
@@ -46,6 +49,8 @@ refs.main.addEventListener('click', e => {
     .then(movie => {
       fillModal(movie);
       watchedQueue(movie);
+      recognitionWatchFromLS(movie);
+      recognitionQueueFromLS(movie);
     })
     .catch(error => console.log(error));
 });
@@ -133,28 +138,62 @@ function fillModal(movie) {
   closeBtn.addEventListener('click', closeModal);
 }
 
+const saveToLS = movie => {
+  watchedArr.push(movie);
+  const jsonMovie = JSON.stringify(watchedArr);
+  localStorage.setItem(key, jsonMovie);
+};
+
+const loadFromLS = key => {
+  let arr = JSON.parse(localStorage.getItem(key));
+  if (arr === null) arr = [];
+  return arr;
+};
+
+const recognitionWatchFromLS = movie => {
+  const watchedBtn = document.querySelector('#watched-button');
+  const watchedArr = loadFromLS('watched');
+  watchedBtn.innerHTML = 'ADD TO WATCHED';
+  if (watchedArr.find(movieInArr => movieInArr.id === movie.id)) {
+    watchedBtn.innerHTML = 'REMOVE FROM WATCHED';
+  }
+};
+
+const recognitionQueueFromLS = movie => {
+  const queueBtn = document.querySelector('#queue-button');
+  const queueArr = loadFromLS('queue');
+  queueBtn.innerHTML = 'ADD TO QUEUE';
+  if (queueArr.find(movieInArr => movieInArr.id === movie.id)) {
+    queueBtn.innerHTML = 'REMOVE FROM QUEUE';
+  }
+};
 const watchedQueue = movie => {
   const watchedBtn = document.querySelector('#watched-button');
   const queueBtn = document.querySelector('#queue-button');
+  let watchedArr = [];
 
   const addToLS = (movie, key) => {
-    let watchedArr = JSON.parse(localStorage.getItem(key));
-    if (watchedArr === null) watchedArr = [];
-    if (watchedArr.find(movieInArr => movieInArr.id === movie.id)) {
-      console.log('Is on list');
-      return;
+    const arr = loadFromLS(key);
+    let newArr = [];
+    if (arr.find(movieInArr => movieInArr.id === movie.id) !== undefined) {
+      newArr = arr.filter(film => film.id !== movie.id);
+      const jsonMovie = JSON.stringify(newArr);
+      localStorage.setItem(key, jsonMovie);
+      Notify.info(`Film removed from yours ${key} list`);
+    } else {
+      const updatedArr = [...arr, movie];
+      const jsonMovie = JSON.stringify(updatedArr);
+      localStorage.setItem(key, jsonMovie);
+      Notify.success(`Film added to yours ${key} list`);
     }
-    console.log(movie.id);
-    watchedArr.push(movie);
-    console.log(watchedArr);
-    const jsonMovie = JSON.stringify(watchedArr);
-    localStorage.setItem(key, jsonMovie);
   };
 
   watchedBtn.addEventListener('click', () => {
     addToLS(movie, 'watched');
+    recognitionWatchFromLS(movie);
   });
   queueBtn.addEventListener('click', () => {
     addToLS(movie, 'queue');
+    recognitionQueueFromLS(movie);
   });
 };
