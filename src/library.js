@@ -2,24 +2,17 @@ import './sass/main.scss';
 import './javascript/modal';
 import './javascript/libraryButtons';
 import { refs } from './javascript/refs';
-import { searchMoviesByGenre } from './javascript/fetchTrendingMovies';
-
 // const main = document.querySelector('#main'); to importujemy z refs
-let genresArr = [];
-
-// searchMoviesByGenre(genreId);
 
 const loadWatchedFromLS = key => {
   try {
     const parsedArr = JSON.parse(localStorage.getItem(key));
-    // console.log(parsedArr);
+
     if (parsedArr === null) return;
     parsedArr.forEach(film => {
-      const movieGenresID = film.genres;
       let movieGenresNames = [];
+      const movieGenresID = film.genres;
       movieGenresNames = movieGenresID.map(genre => genre.name).join(', ');
-
-      console.log(movieGenresNames);
       const releaseDate = new Date(film.release_date).toLocaleDateString('en-US', {
         year: 'numeric',
         month: undefined,
@@ -60,20 +53,11 @@ const loadWatchedFromLS = key => {
 const userQueue = document.querySelector('#user-queue-btn');
 const userWatched = document.querySelector('#user-watched-btn');
 
-// refs.queueBtn.addEventListener('click', () => {
-//   loadWatchedFromLS('queue');
-// });
-// refs.watchedBtn.addEventListener('click', () => {
-//   loadWatchedFromLS('watched');
-// });
-
 userQueue.addEventListener('click', () => {
-  // console.log('queue btn');
   refs.main.innerHTML = ' ';
   loadWatchedFromLS('queue');
 });
 userWatched.addEventListener('click', () => {
-  // console.log('watched btn');
   refs.main.innerHTML = ' ';
   loadWatchedFromLS('watched');
 });
