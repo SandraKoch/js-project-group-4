@@ -32,13 +32,13 @@
     width: 704px;
     max-height: 552px;
     top: 219px;
-    padding-bottom: 0;
+    padding-bottom: 21px;
   }
 
   @include desktop {
     width: 806px;
     max-height: 558px;
-    padding: 40px 12px;
+    padding: 32px 12px;
     top: 150px;
   }
 }
@@ -61,7 +61,7 @@
 }
 
 .modal-content {
-  max-height: 473px;
+  max-height: 484px;
   overflow-y: scroll;
   overflow-x: hidden;
   width: 278px;
@@ -96,7 +96,7 @@
     border-radius: 5px;
 
     @include tablet {
-      margin-bottom: 78px;
+      margin-bottom: 7px;
       width: 264px;
       height: 373.55px;
     }
