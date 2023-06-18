@@ -48,7 +48,7 @@ export function displayMovies(results) {
               src="${
                 film.poster_path
                   ? `https://image.tmdb.org/t/p/w500${film.poster_path}`
-                  : `http://localhost:1234/header-background-primary-768.91f8ed7a.png`
+                  : `https://github.com/SandraKoch/js-project-group-4/blob/main/src/images/no-image-here.png?raw=true`
               }" alt="${film.title}" />
             <figcaption id="main__caption" class="main__caption">
               <span id="main__movie-name" class="main__movie-name">
