@@ -2,9 +2,6 @@ import './sass/main.scss';
 import './javascript/modal';
 import './javascript/libraryButtons';
 import { refs } from './javascript/refs';
-// import './javascript/fetchTrendingMovies';
-// import { fetchTrendingMovies } from './javascript/fetchTrendingMovies';
-//import './javascript/loader.js';
 
 // const main = document.querySelector('#main'); to importujemy z refs
 let genresArr = [];

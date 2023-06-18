@@ -4,6 +4,8 @@ import { refs } from './refs';
 
 const backdrop = document.querySelector('#backdrop');
 // const main = document.querySelector('#main'); to importujemy z refs
+// const watchedBtn = document.querySelector('#watched-button');
+// const queueBtn = document.querySelector('#queue-button');
 
 const openModal = event => {
   if (event.target.nodeName !== 'IMG') {
@@ -46,6 +48,8 @@ refs.main.addEventListener('click', e => {
     .then(movie => {
       fillModal(movie);
       watchedQueue(movie);
+      recognitionWatchFromLS(movie);
+      recognitionQueueFromLS(movie);
     })
     .catch(error => console.log(error));
 });
@@ -133,28 +137,65 @@ function fillModal(movie) {
   closeBtn.addEventListener('click', closeModal);
 }
 
+const saveToLS = movie => {
+  watchedArr.push(movie);
+  const jsonMovie = JSON.stringify(watchedArr);
+  localStorage.setItem(key, jsonMovie);
+};
+
+const loadFromLS = key => {
+  let arr = JSON.parse(localStorage.getItem(key));
+  if (arr === null) arr = [];
+
+  return arr;
+};
+
+const recognitionWatchFromLS = movie => {
+  const watchedBtn = document.querySelector('#watched-button');
+  const watchedArr = loadFromLS('watched');
+  if (watchedArr.find(movieInArr => movieInArr.id === movie.id)) {
+    // console.log('Is on watchlist');
+    // console.log(watchedArr, typeof watchedArr);
+    watchedBtn.innerHTML = 'REMOVE FROM WATCHED';
+  }
+};
+
+const recognitionQueueFromLS = movie => {
+  const queueBtn = document.querySelector('#queue-button');
+  const queueArr = loadFromLS('queue');
+  if (queueArr.find(movieInArr => movieInArr.id === movie.id)) {
+    // console.log('Is on queuelist');
+    // console.log(queueArr, typeof queueArr);
+    queueBtn.innerHTML = 'REMOVE FROM QUEUE';
+  }
+};
 const watchedQueue = movie => {
   const watchedBtn = document.querySelector('#watched-button');
   const queueBtn = document.querySelector('#queue-button');
+  let watchedArr = [];
 
   const addToLS = (movie, key) => {
-    let watchedArr = JSON.parse(localStorage.getItem(key));
-    if (watchedArr === null) watchedArr = [];
-    if (watchedArr.find(movieInArr => movieInArr.id === movie.id)) {
-      console.log('Is on list');
-      return;
-    }
-    console.log(movie.id);
-    watchedArr.push(movie);
-    console.log(watchedArr);
-    const jsonMovie = JSON.stringify(watchedArr);
+    const arr = loadFromLS(key);
+    // console.log(arr);
+    arr.push(movie);
+    const jsonMovie = JSON.stringify(arr);
     localStorage.setItem(key, jsonMovie);
+    if (arr.filter(movieID => movieID !== movie.id)) {
+      // console.log(movie.id);
+      // const newArr = arr;
+      // console.log(newArr);
+      console.log(arr);
+    }
   };
 
   watchedBtn.addEventListener('click', () => {
     addToLS(movie, 'watched');
+    recognitionWatchFromLS(movie);
   });
   queueBtn.addEventListener('click', () => {
     addToLS(movie, 'queue');
+    recognitionQueueFromLS(movie);
   });
 };
+
+const removeFromLS = movieInLS => {};
