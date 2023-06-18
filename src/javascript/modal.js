@@ -30,7 +30,7 @@ window.addEventListener('keydown', event => {
 });
 
 backdrop.addEventListener('click', event => {
-  if (event.target === modal) {
+  if (event.target === backdrop) {
     backdrop.classList.add('is-hidden');
   }
   backdrop.innerHTML = '';

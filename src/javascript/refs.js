@@ -4,4 +4,5 @@ export const refs = {
   main: document.querySelector('#main'),
   watchedBtn: document.querySelector('#watched-button'),
   queueBtn: document.querySelector('#queue-button'),
+  loader: document.querySelector('#loader'),
 };
