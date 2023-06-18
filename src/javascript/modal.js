@@ -1,6 +1,7 @@
 // import './fetchTrendingMovies';
 import { options } from './config';
 import { refs } from './refs';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const backdrop = document.querySelector('#backdrop');
 // const main = document.querySelector('#main'); to importujemy z refs
@@ -178,10 +179,12 @@ const watchedQueue = movie => {
       newArr = arr.filter(film => film.id !== movie.id);
       const jsonMovie = JSON.stringify(newArr);
       localStorage.setItem(key, jsonMovie);
+      Notify.info(`Film removed from yours ${key} list`);
     } else {
       const updatedArr = [...arr, movie];
       const jsonMovie = JSON.stringify(updatedArr);
       localStorage.setItem(key, jsonMovie);
+      Notify.success(`Film added to yours ${key} list`);
     }
   };
 

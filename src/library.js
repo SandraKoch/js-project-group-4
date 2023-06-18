@@ -60,6 +60,13 @@ const loadWatchedFromLS = key => {
 const userQueue = document.querySelector('#user-queue-btn');
 const userWatched = document.querySelector('#user-watched-btn');
 
+// refs.queueBtn.addEventListener('click', () => {
+//   loadWatchedFromLS('queue');
+// });
+// refs.watchedBtn.addEventListener('click', () => {
+//   loadWatchedFromLS('watched');
+// });
+
 userQueue.addEventListener('click', () => {
   console.log('queue btn');
   refs.main.innerHTML = ' ';
