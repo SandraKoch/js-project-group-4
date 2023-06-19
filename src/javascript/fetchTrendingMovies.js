@@ -2,11 +2,27 @@ import { API_KEY, ACCESS_TOKEN, PAGE } from './config';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { refs } from './refs';
 import { options } from './config';
+import { generatePagination } from './pagination';
 
 let genresArr = [];
 let currentGenreId = null;
+let currentFetchType = '';
+let currentQuery = '';
+
+export function getCurrentQuery() {
+  return currentQuery;
+}
+
+export function getCurrentGenreId() {
+  return currentGenreId;
+}
+
+export function getCurrentFetchType() {
+  return currentFetchType;
+}
 
 export async function searchMovies(query, page) {
+  currentFetchType = 'search';
   return fetch(
     `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&page=${page}`,
     options,
@@ -69,17 +85,21 @@ export function displayMovies(results) {
   });
 }
 
+export function fetchPopular(page = 1) {
+  currentFetchType = 'popular';
+  return fetch(
+    `https://api.themoviedb.org/3/trending/movie/day?language=en-US&page=${page}`,
+    options,
+  )
+    .then(response => response.json())
+    .catch(err => console.error(err));
+}
+
 export function initTrendingMovies() {
   const PAGE = 1; // Ustaw odpowiednią wartość strony
 
   function fetchGenres() {
     return fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
-      .then(response => response.json())
-      .catch(err => console.error(err));
-  }
-
-  function fetchPopular() {
-    return fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
       .then(response => response.json())
       .catch(err => console.error(err));
   }
@@ -95,6 +115,7 @@ export function initTrendingMovies() {
     console.log(popularRes, 'popularRes');
 
     displayMovies(popularRes);
+    generatePagination(popularRes.total_pages);
 
     // Create genre buttons
     const genresContainer = document.getElementById('genres');
@@ -102,9 +123,11 @@ export function initTrendingMovies() {
       const button = document.createElement('button');
       button.classList.add('button');
       button.textContent = genre.name;
-      button.addEventListener('click', () => {
+      button.addEventListener('click', async () => {
         currentGenreId = genre.id;
-        searchMoviesByGenre(currentGenreId, PAGE); // Przekazanie wartości strony
+        const data = await searchMoviesByGenre(currentGenreId, PAGE); // Przekazanie wartości strony
+        displayMovies(data);
+        generatePagination(data.total_pages);
       });
       genresContainer.appendChild(button);
     });
@@ -114,8 +137,10 @@ export function initTrendingMovies() {
     refs.searchFormElement.addEventListener('submit', async e => {
       e.preventDefault();
       const trimmedInputValue = refs.searchInputElement.value.trim();
+      currentQuery = trimmedInputValue;
       const foundMovies = await searchMovies(trimmedInputValue, PAGE);
 
+      generatePagination(foundMovies.total_pages);
       if (trimmedInputValue !== '') {
         handleResults(foundMovies);
         const genresContainer = document.getElementById('genres');
@@ -127,13 +152,14 @@ export function initTrendingMovies() {
   }
 }
 
-async function searchMoviesByGenre(genreId, page) {
+export async function searchMoviesByGenre(genreId, page) {
+  currentFetchType = 'genre';
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&include_adult=false&page=${page}`,
     options,
   );
-  const data = await response.json();
-  displayMovies(data);
+  return await response.json();
+  // displayMovies(data);
 }
 
 function handleResults(apiObject) {
