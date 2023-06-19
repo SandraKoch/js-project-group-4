@@ -2,6 +2,7 @@ import { API_KEY, ACCESS_TOKEN, PAGE } from './config';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { refs } from './refs';
 import { options } from './config';
+import { generatePagination } from './pagination';
 
 let genresArr = [];
 let currentGenreId = null;
@@ -69,17 +70,20 @@ export function displayMovies(results) {
   });
 }
 
+export function fetchPopular(page = 1) {
+  return fetch(
+    `https://api.themoviedb.org/3/trending/movie/day?language=en-US&page=${page}`,
+    options,
+  )
+    .then(response => response.json())
+    .catch(err => console.error(err));
+}
+
 export function initTrendingMovies() {
   const PAGE = 1; // Ustaw odpowiednią wartość strony
 
   function fetchGenres() {
     return fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
-      .then(response => response.json())
-      .catch(err => console.error(err));
-  }
-
-  function fetchPopular() {
-    return fetch('https://api.themoviedb.org/3/trending/movie/day?language=en-US', options)
       .then(response => response.json())
       .catch(err => console.error(err));
   }
@@ -95,6 +99,7 @@ export function initTrendingMovies() {
     console.log(popularRes, 'popularRes');
 
     displayMovies(popularRes);
+    generatePagination(popularRes.total_pages);
 
     // Create genre buttons
     const genresContainer = document.getElementById('genres');
@@ -115,7 +120,7 @@ export function initTrendingMovies() {
       e.preventDefault();
       const trimmedInputValue = refs.searchInputElement.value.trim();
       const foundMovies = await searchMovies(trimmedInputValue, PAGE);
-
+      generatePagination(foundMovies.total_pages);
       if (trimmedInputValue !== '') {
         handleResults(foundMovies);
         const genresContainer = document.getElementById('genres');

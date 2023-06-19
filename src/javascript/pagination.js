@@ -1,4 +1,4 @@
-import { searchMovies, displayMovies } from './fetchTrendingMovies';
+import { searchMovies, displayMovies, fetchPopular } from './fetchTrendingMovies';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { refs } from './refs';
 
@@ -31,7 +31,6 @@ function createPaginationItem(pageNumber, isActive) {
 }
 
 function createPaginationEllipsis() {
-
   const listItem = document.createElement('li');
   const ellipsisSpan = document.createElement('span');
   ellipsisSpan.classList.add('pagination__element', 'pagination__element--ellipsis');
@@ -42,7 +41,10 @@ function createPaginationEllipsis() {
 
 async function performSearch() {
   const query = refs.searchInputElement.value.trim();
-  const searchResults = await searchMovies(query, currentPage);
+
+  const searchResults = query
+    ? await searchMovies(query, currentPage)
+    : await fetchPopular(currentPage);
 
   if (searchResults.results.length) {
     displayMovies(searchResults);
@@ -54,7 +56,9 @@ async function performSearch() {
   }
 }
 
-function generatePagination(totalPages) {
+export function generatePagination(pages) {
+  const totalPages = Math.min(pages, 500);
+
   refs.paginationList.innerHTML = '';
 
   let maxVisibleButtons = 5;
