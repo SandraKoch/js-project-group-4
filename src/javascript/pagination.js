@@ -1,4 +1,12 @@
-import { searchMovies, displayMovies, fetchPopular } from './fetchTrendingMovies';
+import {
+  searchMovies,
+  displayMovies,
+  fetchPopular,
+  getCurrentFetchType,
+  searchMoviesByGenre,
+  getCurrentGenreId,
+  getCurrentQuery,
+} from './fetchTrendingMovies';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { refs } from './refs';
 
@@ -40,11 +48,20 @@ function createPaginationEllipsis() {
 }
 
 async function performSearch() {
-  const query = refs.searchInputElement.value.trim();
+  const currentFetchType = getCurrentFetchType();
+  console.log('current', currentFetchType);
 
-  const searchResults = query
-    ? await searchMovies(query, currentPage)
-    : await fetchPopular(currentPage);
+  let searchResults;
+
+  if (currentFetchType === 'search') {
+    const currentQuery = getCurrentQuery();
+    searchResults = await searchMovies(currentQuery, currentPage);
+  } else if (currentFetchType === 'popular') {
+    searchResults = await fetchPopular(currentPage);
+  } else {
+    const genreId = getCurrentGenreId();
+    searchResults = await searchMoviesByGenre(genreId, currentPage);
+  }
 
   if (searchResults.results.length) {
     displayMovies(searchResults);
@@ -57,6 +74,7 @@ async function performSearch() {
 }
 
 export function generatePagination(pages) {
+  //API limitation adjustment
   const totalPages = Math.min(pages, 500);
 
   refs.paginationList.innerHTML = '';
