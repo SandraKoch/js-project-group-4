@@ -5,5 +5,6 @@ import { config } from './javascript/config';
 import { initTrendingMovies } from './javascript/fetchTrendingMovies';
 import './javascript/modal';
 import './javascript/backToTop';
+import './javascript/team-modal';
 
 initTrendingMovies();
