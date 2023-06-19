@@ -50,6 +50,15 @@
   background-color: var(--color-white);
   border-width: 0;
   padding: 0;
+  cursor: pointer;
+  transform: rotate(0deg);
+  transition: 250ms;
+
+  &:hover,
+  &:focus {
+    transform: rotate(10deg);
+    transition: 250ms;
+  }
 
   @include tablet {
     left: 664px;
@@ -301,6 +310,10 @@
   visibility: hidden;
 }
 
+.opening-modal {
+  animation: opening 200ms linear none;
+}
+
 @keyframes scroll-down {
   0% {
     /* top:20%; */
@@ -315,5 +328,15 @@
   100% {
     top: 90%;
     opacity: 0;
+  }
+}
+
+@keyframes opening {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 1;
   }
 }

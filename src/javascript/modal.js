@@ -12,19 +12,21 @@ const openModal = event => {
   if (event.target.nodeName !== 'IMG') {
     return;
   }
-
   backdrop.classList.remove('is-hidden');
+  backdrop.classList.add('opening-modal');
 };
 
 const closeModal = () => {
   backdrop.innerHTML = '';
   backdrop.classList.add('is-hidden');
+  backdrop.classList.remove('opening-modal');
 };
 
 refs.main.addEventListener('click', openModal);
 window.addEventListener('keydown', event => {
   if (event.code === 'Escape') {
     backdrop.classList.add('is-hidden');
+    backdrop.classList.remove('opening-modal');
   }
   backdrop.innerHTML = '';
 });
@@ -32,6 +34,7 @@ window.addEventListener('keydown', event => {
 backdrop.addEventListener('click', event => {
   if (event.target === backdrop) {
     backdrop.classList.add('is-hidden');
+    backdrop.classList.remove('opening-modal');
   }
   backdrop.innerHTML = '';
 });
