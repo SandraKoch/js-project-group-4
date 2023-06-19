@@ -1,15 +1,21 @@
 #genres {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    
     margin-top: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    @include tablet {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 .button-container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 10px;
+    
 }
 
 .button-container button {
@@ -26,13 +32,18 @@
     background-color: #e0e0e0;
 }
 .movies {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
     max-height: 100px;
     overflow-x: auto;
-    
-}
-
-@media (min-width: 768px) {
-    .movies {
-        max-height: 400px;   
+    overflow-y: hidden;
+    white-space: nowrap;
+    &::-webkit-scrollbar {
+            display: none;
+        }
+    @include tablet {
+        max-height: 200px;
     }
+   
 }
