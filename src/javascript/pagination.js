@@ -28,6 +28,7 @@ function createPaginationItem(pageNumber, isActive) {
       currentPage = pageNumber;
       performSearch();
     }
+    scroll(0, 0);
   });
 
   if (isActive) {
@@ -122,11 +123,13 @@ refs.previousButton.addEventListener('click', () => {
     currentPage--;
     performSearch();
   }
+  scroll(0, 0);
 });
 
 refs.nextButton.addEventListener('click', () => {
   currentPage++;
   performSearch();
+  scroll(0, 0);
 });
 
 generatePagination(totalPages);
