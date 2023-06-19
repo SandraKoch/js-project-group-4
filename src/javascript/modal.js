@@ -45,14 +45,16 @@ function fetchMovieInfo(movieId) {
 }
 
 refs.main.addEventListener('click', e => {
-  fetchMovieInfo(e.target.id)
-    .then(movie => {
-      fillModal(movie);
-      watchedQueue(movie);
-      recognitionWatchFromLS(movie);
-      recognitionQueueFromLS(movie);
-    })
-    .catch(error => console.log(error));
+  if (e.target.nodeName === 'IMG') {
+    fetchMovieInfo(e.target.id)
+      .then(movie => {
+        fillModal(movie);
+        watchedQueue(movie);
+        recognitionWatchFromLS(movie);
+        recognitionQueueFromLS(movie);
+      })
+      .catch(error => console.log(error));
+  }
 });
 
 function fillModal(movie) {
@@ -197,3 +199,4 @@ const watchedQueue = movie => {
     recognitionQueueFromLS(movie);
   });
 };
+
