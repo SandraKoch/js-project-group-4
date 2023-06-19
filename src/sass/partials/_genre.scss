@@ -25,3 +25,14 @@
 .button-container button:hover {
     background-color: #e0e0e0;
 }
+.movies {
+    max-height: 100px;
+    overflow-x: auto;
+    
+}
+
+@media (min-width: 768px) {
+    .movies {
+        max-height: 400px;   
+    }
+}
