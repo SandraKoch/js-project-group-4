@@ -157,7 +157,7 @@ function openTrailer(movieId) {
         const trailerUrl = `https://www.youtube.com/watch?v=${trailerKey}`;
         window.open(trailerUrl, '_blank');
       } else {
-        Notify.info('Trailer not available.');
+        Notify.info('Trailer is not available.');
       }
     })
     .catch(error => console.log(error));
