@@ -105,14 +105,14 @@ export function initTrendingMovies() {
   }
 
   Promise.all([fetchGenres(), fetchPopular()]).then(res => {
-    console.log('res', res);
+    // console.log('res', res);
     const [genresRes, popularRes] = res;
     //first promise
     genresArr = genresRes.genres;
     //second promise
     refs.main.innerHTML = '';
 
-    console.log(popularRes, 'popularRes');
+    // console.log(popularRes, 'popularRes');
 
     displayMovies(popularRes);
     generatePagination(popularRes.total_pages);
