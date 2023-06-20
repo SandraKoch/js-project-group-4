@@ -1,4 +1,5 @@
 // import './fetchTrendingMovies';
+// import { loadWatchedFromLS } from '../library';
 import { options } from './config';
 import { refs } from './refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -22,23 +23,6 @@ const closeModal = () => {
   backdrop.classList.remove('opening-modal');
 };
 
-refs.main.addEventListener('click', openModal);
-window.addEventListener('keydown', event => {
-  if (event.code === 'Escape') {
-    backdrop.classList.add('is-hidden');
-    backdrop.classList.remove('opening-modal');
-  }
-  backdrop.innerHTML = '';
-});
-
-backdrop.addEventListener('click', event => {
-  if (event.target === backdrop) {
-    backdrop.classList.add('is-hidden');
-    backdrop.classList.remove('opening-modal');
-  }
-  backdrop.innerHTML = '';
-});
-
 //is it necessary to create a new fetch ?
 
 function fetchMovieInfo(movieId) {
@@ -47,18 +31,37 @@ function fetchMovieInfo(movieId) {
     .catch(error => console.log(error));
 }
 
-refs.main.addEventListener('click', e => {
-  if (e.target.nodeName === 'IMG') {
-    fetchMovieInfo(e.target.id)
-      .then(movie => {
-        fillModal(movie);
-        watchedQueue(movie);
-        recognitionWatchFromLS(movie);
-        recognitionQueueFromLS(movie);
-      })
-      .catch(error => console.log(error));
-  }
-});
+export function initModal(onActionFn) {
+  refs.main.addEventListener('click', openModal);
+  window.addEventListener('keydown', event => {
+    if (event.code === 'Escape') {
+      backdrop.classList.add('is-hidden');
+      backdrop.classList.remove('opening-modal');
+    }
+    backdrop.innerHTML = '';
+  });
+
+  backdrop.addEventListener('click', event => {
+    if (event.target === backdrop) {
+      backdrop.classList.add('is-hidden');
+      backdrop.classList.remove('opening-modal');
+    }
+    backdrop.innerHTML = '';
+  });
+
+  refs.main.addEventListener('click', e => {
+    if (e.target.nodeName === 'IMG') {
+      fetchMovieInfo(e.target.id)
+        .then(movie => {
+          fillModal(movie);
+          watchedQueue(movie, onActionFn);
+          recognitionWatchFromLS(movie);
+          recognitionQueueFromLS(movie);
+        })
+        .catch(error => console.log(error));
+    }
+  });
+}
 
 function fillModal(movie) {
   backdrop.insertAdjacentHTML(
@@ -199,7 +202,7 @@ const recognitionQueueFromLS = movie => {
     queueBtn.innerHTML = 'REMOVE FROM QUEUE';
   }
 };
-const watchedQueue = movie => {
+const watchedQueue = (movie, onActionFn) => {
   const watchedBtn = document.querySelector('#watched-button');
   const queueBtn = document.querySelector('#queue-button');
   let watchedArr = [];
@@ -217,6 +220,10 @@ const watchedQueue = movie => {
       const jsonMovie = JSON.stringify(updatedArr);
       localStorage.setItem(key, jsonMovie);
       Notify.success(`Film added to yours ${key} list`);
+    }
+
+    if (onActionFn) {
+      onActionFn(key);
     }
   };
 
