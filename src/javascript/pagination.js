@@ -50,7 +50,7 @@ function createPaginationEllipsis() {
 
 async function performSearch() {
   const currentFetchType = getCurrentFetchType();
-  console.log('current', currentFetchType);
+  // console.log('current', currentFetchType);
 
   let searchResults;
 
