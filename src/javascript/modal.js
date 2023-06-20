@@ -74,7 +74,11 @@ function fillModal(movie) {
     </button>
     <div class="modal-content">
 <div id="image-box" class="image-box">
-  <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" id="image-box__image" class="image-box__image" />
+  <img src="${
+    movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      : `https://github.com/SandraKoch/js-project-group-4/blob/main/src/images/no-image-here.png?raw=true`
+  }" id="image-box__image" class="image-box__image" />
 </div>
 <div id="movie-info" class="movie-info">
   <h2 id="movie-title" class="movie-title">${movie.title}</h2>
@@ -115,14 +119,18 @@ function fillModal(movie) {
       </li>
       <li class="movie-details__item-value">
         <p id="movie-details__value" class="movie-details__value">
-          <span id="movie-genre" class="movie-genre">${movie.genres[0].name}</span>
+          <span id="movie-genre" class="movie-genre">${
+            movie.genres[0] ? movie.genres[0].name : `No genres here`
+          }</span>
         </p>
       </li>
     </ul>
   </div>
   <div class="movie-description">
     <p class="movie-description__about">ABOUT</p>
-    <p id="movie-description__description" class="movie-description__description">${movie.overview}</p>
+    <p id="movie-description__description" class="movie-description__description">${
+      movie.overview
+    }</p>
   </div>
   <div class="buttons-box">
     <button type="button" id="watched-button" class="watched-button button">ADD TO WATCHED</button>
@@ -221,4 +229,3 @@ const watchedQueue = movie => {
     recognitionQueueFromLS(movie);
   });
 };
-
