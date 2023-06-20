@@ -6,6 +6,7 @@ import { initTrendingMovies } from './javascript/fetchTrendingMovies';
 import './javascript/modal';
 import './javascript/backToTop';
 import { initModal } from './javascript/modal';
+import './javascript/footer-modal';
 
 initTrendingMovies();
 initModal();
