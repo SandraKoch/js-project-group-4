@@ -1,14 +1,18 @@
 import './sass/main.scss';
-import './javascript/modal';
+import { initModal } from './javascript/modal';
 import './javascript/libraryButtons';
 import { refs } from './javascript/refs';
 // const main = document.querySelector('#main'); to importujemy z refs
+
+let currentType = 'watched';
 
 const loadWatchedFromLS = key => {
   try {
     const parsedArr = JSON.parse(localStorage.getItem(key));
 
     if (parsedArr === null) return;
+
+    refs.main.innerHTML = '';
     parsedArr.forEach(film => {
       let movieGenresNames = [];
       const movieGenresID = film.genres;
@@ -55,11 +59,21 @@ const userWatched = document.querySelector('#user-watched-btn');
 
 userQueue.addEventListener('click', () => {
   refs.main.innerHTML = ' ';
+  currentType = 'queue';
   loadWatchedFromLS('queue');
 });
 userWatched.addEventListener('click', () => {
   refs.main.innerHTML = ' ';
+  currentType = 'watched';
   loadWatchedFromLS('watched');
 });
 
+function onModalAction(key) {
+  const shouldRefresh = currentType === key;
+  if (shouldRefresh) {
+    loadWatchedFromLS(key);
+  }
+}
+
 loadWatchedFromLS('watched');
+initModal(onModalAction);
