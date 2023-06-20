@@ -103,7 +103,7 @@
     width: 240px;
     height: 357px;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
 
     @include tablet {
       margin-bottom: 7px;
@@ -170,21 +170,20 @@
 }
 
 .movie-rating {
-  display: inline-block;
-  text-align: center;
+  padding: 0 3px;
   width: 36px;
   height: 16px;
   border-radius: 5px;
   background-color: rgba(255, 107, 1, 1);
   color: rgba(255, 255, 255, 1);
-  padding: 2px 0;
+  font-size: var(--font-12);
 
   @include tablet {
-    padding: 2px 0;
+    padding: 1px 2px;
   }
 
   @include desktop {
-    padding: 3px 0;
+    padding: 3px 4px;
   }
 }
 
