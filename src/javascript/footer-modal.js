@@ -1,10 +1,5 @@
-const refs = {
-    openModal: document.querySelector('.open-modal-team'),
-    closeModal: document.querySelector('.close-modal-team'),
-    teamBackdrop: document.querySelector('.backdrop-modal'),
-    teamModal: document.getElementsByClassName('team__modal'),
-  };
-  
+import { refs } from './refs';
+
   refs.openModal.addEventListener('click', openModalTeam);
   refs.closeModal.addEventListener('click', closeModalTeam);
   

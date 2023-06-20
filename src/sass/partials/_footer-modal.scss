@@ -1,5 +1,6 @@
 .backdrop-modal {
-    position: fixed;
+    
+  position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -12,7 +13,6 @@
     white-space: nowrap;
     width: 1px;
     height: 1px;
-    overflow: hidden;
     border: 0;
     padding: 0;
     clip: rect(0 0 0 0);
@@ -50,13 +50,11 @@
     padding: 7px;
     background-color: #f7f7f7;
     transform: translateX(-50%);
-    overflow-y: scroll;
   
-    max-width: 840px;
+    max-width: 850px;
     height: 100%;
-    max-height: 558px;
-    border-radius: 3px;
-    height: max-content;
+    max-height: 430;
+    border-radius: 13px;
     padding-left: 20px;
   }
   
@@ -72,54 +70,78 @@
     text-align: center;
     text-shadow: 1px 1px 1px #ccc, 1px -1px 1px #ccc, -1px 1px 1px #ccc,
       -1px -1px 1px #ccc;
-    transition: all 1s;
+    animation: Color 4s linear infinite;
     &:hover,
     &:focus {
       color: #ff6b08;
     }
   
-    @media screen and (min-width: 768px) {
+    @include tablet{
       padding-top: 15px;
       margin-bottom: 30px;
       font-size: 30px;
     }
   }
-  .team__title:after {
-    content: '';
-    display: block;
-    position: relative;
-    z-index: -1;
-    width: 100%;
-    margin: auto;
-    border-bottom: 3px solid black;
-    bottom: 0.15em;
-    transition: all 1s;
-  }
-  H1:hover:after {
-    width: 0%;
-    border-bottom-width: 1px;
-  }
+
 
   .team__box {
+    display: grid; 
+    grid-template-columns: 115px 115px; 
+    grid-template-rows: 45px 45px 45px 50px; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+    "team-lider scrum-master"
+    "developer-1 developer-2"
+    "developer-3 developer-4"
+    "developer-5 developer-5"; 
+    justify-items: center; 
+    align-items: center; 
     margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
     width: 278px;
     gap: 40px;
   
-    @media screen and (min-width: 768px) {
-      width: 490px;
+    @include tablet{
+      display: grid; 
+      grid-template-columns: 134px 134px 134px 134px 134px; 
+      grid-template-rows: 100px 100px 100px; 
+      gap: 0px 0px; 
+      gap: 0px 0px; 
+      grid-template-areas: 
+      "developer-1 . developer-2 . developer-3"
+      ". team-lider . scrum-master ."
+      "developer-4 . . . developer-5"; 
+      justify-items: center;
+      width: 680px;
       gap: 0px;
       margin-bottom: 20px;
     }
   
-    @media screen and (min-width: 1280px) {
+    @include desktop{
+      
+      display: grid; 
+      grid-template-columns: 152px 152px 152px 152px 152px; 
+      grid-template-rows: 100px 100px 100px; 
+      gap: 0px 0px; 
+      gap: 0px 0px; 
+      grid-template-areas: 
+      "developer-1 . developer-2 . developer-3"
+      ". team-lider . scrum-master ."
+      "developer-4 . . . developer-5"; 
+      justify-items: center;
       width: 790px;
       gap: 5px;
       margin-bottom: 35px;
     }
   }
+  .team-lider { grid-area: team-lider; }
+  .scrum-master { grid-area: scrum-master; }
+  .developer-1 { grid-area: developer-1; }
+  .developer-2 { grid-area: developer-2; }
+  .developer-3 { grid-area: developer-3; }
+  .developer-4 { grid-area: developer-4; }
+  .developer-5 { grid-area: developer-5; }
+
+
   
   .team__member {
     display: flex;
@@ -134,7 +156,8 @@
       transform: scale(1.05);
     }
   
-    @media screen and (min-width: 768px) {
+    @include tablet{
+      width: 230px;
       margin-bottom: 15px;
       &:hover,
       &:focus {
@@ -142,7 +165,8 @@
       }
     }
   
-    @media screen and (min-width: 1280px) {
+    @include desktop{
+      
       &:hover,
       &:focus {
         transform: scale(1.05);
@@ -151,16 +175,24 @@
   }
   
   .team__photo {
-    height: auto;
-    width: 100px;
+    height: 40px;
+    width: 40px;
     border: 2px;
     margin: auto;
     border-radius: 50px;
     box-shadow: 0px 0px 3px 5px #ccc;
+    @include tablet{
+      height: 60px;
+      width: 60px;
+    }
+    @include desktop{
+      height: 70px;
+      width: 70px;
+    }
   }
   
   .team__name {
-    font-size: 18px;
+    font-size: 12px;
     font-weight: 600;
     color: black;
     transition-duration: 0.5s;
@@ -170,23 +202,26 @@
       color: #ff6b08;
     }
   
-    @media screen and (min-width: 768px) {
+    @include tablet{
       font-size: 19px;
       align-content: center;
     }
   
-    @media screen and (min-width: 1280px) {
+    @include desktop{
       font-size: 22px;
     }
   }
   
   .team__role {
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 500;
     color: gray;
+    @include tablet{
+      font-size: 16px;
+    }
   
-    @media screen and (min-width: 1280px) {
-      font-size: 18px;
+    @include desktop{
+      font-size: 17px;
     }
   }
   
@@ -206,31 +241,41 @@
     border-radius: 10%;
     margin-bottom: 10px;
   
-    @media screen and (min-width: 768px) {
+    @include tablet{
       width: 100%;
       height: 100%;
     }
   }
   
-  .closeModalAnimationTeam {
-    animation: closingTeam 0.4s linear none;
-  }
   .openModalAnimationTeam {
-    animation: openingTeam 0.4s linear none;
+    animation: fadeInFromTransparent 0.4s ease-out both;
   }
-  @keyframes openingTeam {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(50%);
-    }
+  
+  .closeModalAnimationTeam {
+    animation: fadeOutToTransparent 0.4s ease-in both;
   }
-  @keyframes closingTeam {
-    from {
-      transform: translateX(50%);
+  
+  @keyframes fadeInFromTransparent {
+    0% {
+      opacity: 0;
     }
-    to {
-      transform: translateX(100%);
+    100% {
+      opacity: 1;
     }
   }
+  
+  @keyframes fadeOutToTransparent {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .team__modal {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  
