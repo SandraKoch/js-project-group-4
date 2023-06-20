@@ -40,6 +40,7 @@ const loadWatchedFromLS = key => {
                 <span id="main__movie-release-date" class="main__movie-release-date main__movie-data">
                 ${releaseDate}
                 </span>
+                <span id="movie-rating" class="movie-rating">${film.vote_average}</span>
                 </div>
               </figcaption>
             </figure>
