@@ -173,11 +173,6 @@ function openTrailer(movieId) {
     })
     .catch(error => console.log(error));
 }
-const saveToLS = movie => {
-  watchedArr.push(movie);
-  const jsonMovie = JSON.stringify(watchedArr);
-  localStorage.setItem(key, jsonMovie);
-};
 
 const loadFromLS = key => {
   let arr = JSON.parse(localStorage.getItem(key));
@@ -205,7 +200,6 @@ const recognitionQueueFromLS = movie => {
 const watchedQueue = (movie, onActionFn) => {
   const watchedBtn = document.querySelector('#watched-button');
   const queueBtn = document.querySelector('#queue-button');
-  let watchedArr = [];
 
   const addToLS = (movie, key) => {
     const arr = loadFromLS(key);

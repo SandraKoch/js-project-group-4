@@ -12,4 +12,6 @@ export const refs = {
   previousButton: document.querySelector('#previous-btn'),
   nextButton: document.querySelector('#next-btn'),
   paginationList: document.querySelector('#pagination'),
+  userWatched: document.querySelector('#user-watched-btn'),
+  userQueue: document.querySelector('#user-queue-btn'),
 };
