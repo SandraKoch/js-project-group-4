@@ -12,19 +12,21 @@ const openModal = event => {
   if (event.target.nodeName !== 'IMG') {
     return;
   }
-
   backdrop.classList.remove('is-hidden');
+  backdrop.classList.add('opening-modal');
 };
 
 const closeModal = () => {
   backdrop.innerHTML = '';
   backdrop.classList.add('is-hidden');
+  backdrop.classList.remove('opening-modal');
 };
 
 refs.main.addEventListener('click', openModal);
 window.addEventListener('keydown', event => {
   if (event.code === 'Escape') {
     backdrop.classList.add('is-hidden');
+    backdrop.classList.remove('opening-modal');
   }
   backdrop.innerHTML = '';
 });
@@ -32,6 +34,7 @@ window.addEventListener('keydown', event => {
 backdrop.addEventListener('click', event => {
   if (event.target === backdrop) {
     backdrop.classList.add('is-hidden');
+    backdrop.classList.remove('opening-modal');
   }
   backdrop.innerHTML = '';
 });
@@ -45,14 +48,16 @@ function fetchMovieInfo(movieId) {
 }
 
 refs.main.addEventListener('click', e => {
-  fetchMovieInfo(e.target.id)
-    .then(movie => {
-      fillModal(movie);
-      watchedQueue(movie);
-      recognitionWatchFromLS(movie);
-      recognitionQueueFromLS(movie);
-    })
-    .catch(error => console.log(error));
+  if (e.target.nodeName === 'IMG') {
+    fetchMovieInfo(e.target.id)
+      .then(movie => {
+        fillModal(movie);
+        watchedQueue(movie);
+        recognitionWatchFromLS(movie);
+        recognitionQueueFromLS(movie);
+      })
+      .catch(error => console.log(error));
+  }
 });
 
 function fillModal(movie) {
@@ -136,8 +141,27 @@ function fillModal(movie) {
 
   const closeBtn = document.querySelector('#modal-close-button');
   closeBtn.addEventListener('click', closeModal);
-}
 
+  const trailerBtn = document.querySelector('#image-box__image');
+  trailerBtn.addEventListener('click', () => {
+    openTrailer(movie.id);
+  });
+}
+function openTrailer(movieId) {
+  fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos`, options)
+    .then(response => response.json())
+    .then(data => {
+      const trailers = data.results;
+      if (trailers.length > 0) {
+        const trailerKey = trailers[0].key;
+        const trailerUrl = `https://www.youtube.com/watch?v=${trailerKey}`;
+        window.open(trailerUrl, '_blank');
+      } else {
+        Notify.info('Trailer is not available.');
+      }
+    })
+    .catch(error => console.log(error));
+}
 const saveToLS = movie => {
   watchedArr.push(movie);
   const jsonMovie = JSON.stringify(watchedArr);
@@ -197,3 +221,4 @@ const watchedQueue = movie => {
     recognitionQueueFromLS(movie);
   });
 };
+

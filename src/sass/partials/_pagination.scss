@@ -56,3 +56,10 @@
 #previous-btn{
   background-image: url('/src/images/arrow-left.png');
 }
+.pagination__element--ellipsis.pagination__element{
+  display:none;
+  @include tablet{
+    display: flex;
+      justify-content: center;
+  }
+}

@@ -9,4 +9,7 @@ export const refs = {
   closeModal: document.querySelector('.close-modal-team'),
   teamBackdrop: document.querySelector('.backdrop-modal'),
   teamModal: document.getElementsByClassName('team__modal'),
+  previousButton: document.querySelector('#previous-btn'),
+  nextButton: document.querySelector('#next-btn'),
+  paginationList: document.querySelector('#pagination'),
 };

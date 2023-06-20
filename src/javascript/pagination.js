@@ -1,17 +1,21 @@
-import { searchMovies, displayMovies } from './fetchTrendingMovies';
+import {
+  searchMovies,
+  displayMovies,
+  fetchPopular,
+  getCurrentFetchType,
+  searchMoviesByGenre,
+  getCurrentGenreId,
+  getCurrentQuery,
+} from './fetchTrendingMovies';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { refs } from './refs';
-
-const previousButton = document.querySelector('#previous-btn');
-const nextButton = document.querySelector('#next-btn');
-const paginationList = document.querySelector('#pagination');
 
 let currentPage = 1;
 let totalPages = 20;
 
 function updatePaginationButtons() {
-  previousButton.disabled = currentPage === 1;
-  nextButton.disabled = currentPage === totalPages;
+  refs.previousButton.disabled = currentPage === 1;
+  refs.nextButton.disabled = currentPage === totalPages;
 }
 
 function createPaginationItem(pageNumber, isActive) {
@@ -24,6 +28,7 @@ function createPaginationItem(pageNumber, isActive) {
       currentPage = pageNumber;
       performSearch();
     }
+    scroll(0, 0);
   });
 
   if (isActive) {
@@ -44,8 +49,20 @@ function createPaginationEllipsis() {
 }
 
 async function performSearch() {
-  const query = refs.searchInputElement.value.trim();
-  const searchResults = await searchMovies(query, currentPage);
+  const currentFetchType = getCurrentFetchType();
+  console.log('current', currentFetchType);
+
+  let searchResults;
+
+  if (currentFetchType === 'search') {
+    const currentQuery = getCurrentQuery();
+    searchResults = await searchMovies(currentQuery, currentPage);
+  } else if (currentFetchType === 'popular') {
+    searchResults = await fetchPopular(currentPage);
+  } else {
+    const genreId = getCurrentGenreId();
+    searchResults = await searchMoviesByGenre(genreId, currentPage);
+  }
 
   if (searchResults.results.length) {
     displayMovies(searchResults);
@@ -57,10 +74,13 @@ async function performSearch() {
   }
 }
 
-function generatePagination(totalPages) {
-  paginationList.innerHTML = '';
+export function generatePagination(pages) {
+  //API limitation adjustment
+  const totalPages = Math.min(pages, 500);
 
-  const maxVisibleButtons = 7;
+  refs.paginationList.innerHTML = '';
+
+  let maxVisibleButtons = 5;
   const maxVisibleButtonsHalf = Math.floor(maxVisibleButtons / 2);
 
   let firstVisiblePage, lastVisiblePage;
@@ -73,41 +93,43 @@ function generatePagination(totalPages) {
     lastVisiblePage = totalPages;
     if (totalPages > maxVisibleButtons) {
       firstVisiblePage = totalPages - maxVisibleButtons + 1;
-      paginationList.appendChild(createPaginationItem(1, false));
-      paginationList.appendChild(createPaginationEllipsis());
+      refs.paginationList.appendChild(createPaginationItem(1, false));
+      refs.paginationList.appendChild(createPaginationEllipsis());
     }
   } else {
     firstVisiblePage = currentPage - maxVisibleButtonsHalf + 1;
     lastVisiblePage = currentPage + maxVisibleButtonsHalf - 1;
-    paginationList.appendChild(createPaginationItem(1, false));
-    paginationList.appendChild(createPaginationEllipsis());
+    refs.paginationList.appendChild(createPaginationItem(1, false));
+    refs.paginationList.appendChild(createPaginationEllipsis());
   }
 
   for (let i = firstVisiblePage; i <= lastVisiblePage; i++) {
     const isActive = i === currentPage;
-    paginationList.appendChild(createPaginationItem(i, isActive));
+    refs.paginationList.appendChild(createPaginationItem(i, isActive));
   }
 
   if (lastVisiblePage < totalPages) {
-    paginationList.appendChild(createPaginationEllipsis());
+    refs.paginationList.appendChild(createPaginationEllipsis());
   }
 
   const lastPageItem = createPaginationItem(totalPages, false);
-  paginationList.appendChild(lastPageItem);
+  refs.paginationList.appendChild(lastPageItem);
 
   updatePaginationButtons();
 }
 
-previousButton.addEventListener('click', () => {
+refs.previousButton.addEventListener('click', () => {
   if (currentPage > 1) {
     currentPage--;
     performSearch();
   }
+  scroll(0, 0);
 });
 
-nextButton.addEventListener('click', () => {
+refs.nextButton.addEventListener('click', () => {
   currentPage++;
   performSearch();
+  scroll(0, 0);
 });
 
 generatePagination(totalPages);

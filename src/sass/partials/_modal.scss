@@ -50,6 +50,15 @@
   background-color: var(--color-white);
   border-width: 0;
   padding: 0;
+  cursor: pointer;
+  transform: rotate(0deg);
+  transition: 250ms;
+
+  &:hover,
+  &:focus {
+    transform: rotate(10deg);
+    transition: 250ms;
+  }
 
   @include tablet {
     left: 664px;
@@ -94,6 +103,7 @@
     width: 240px;
     height: 357px;
     border-radius: 5px;
+    cursor:pointer;
 
     @include tablet {
       margin-bottom: 7px;
@@ -229,11 +239,10 @@
 
 .watched-button {
   width: 110px;
-  background-color: rgba(255, 107, 1, 1);
-  border-width: 0;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid black;
   border-radius: 5px;
   padding: 7px 27px;
-  color: rgba(255, 255, 255, 1);
   font-size: 12px;
   line-height: 1.33;
 
@@ -301,6 +310,10 @@
   visibility: hidden;
 }
 
+.opening-modal {
+  animation: opening 200ms linear none;
+}
+
 @keyframes scroll-down {
   0% {
     /* top:20%; */
@@ -315,5 +328,15 @@
   100% {
     top: 90%;
     opacity: 0;
+  }
+}
+
+@keyframes opening {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 1;
   }
 }

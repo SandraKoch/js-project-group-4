@@ -106,12 +106,12 @@
     position: relative;
     max-width: 394px;
     margin: 0 auto;
-    display:flex;
+    display: flex;
     align-items: center;
   }
 
   &__input {
-    flex:1;
+    flex: 1;
     width: 100%;
     background-color: transparent;
     border: none;
@@ -126,13 +126,13 @@
     &:focus {
       outline: none;
       border-color: #ff6b08;
-      box-shadow: 0 2px 4px 0 #ff6b08;
+      box-shadow: 0 9px 12px -8px #ff6b08;
     }
   }
 
- // &__icon {
- //   position: absolute;
- //   right: 0;
+  // &__icon {
+  //   position: absolute;
+  //   right: 0;
   //  top: 0.2rem;
   //}
 
@@ -184,7 +184,7 @@
   border: none;
   background-color: transparent;
   margin-left: -20px;
-  cursor:pointer;
+  cursor: pointer;
   vertical-align: middle;
 }
 @keyframes rotateCarousel {
