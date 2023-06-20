@@ -141,8 +141,27 @@ function fillModal(movie) {
 
   const closeBtn = document.querySelector('#modal-close-button');
   closeBtn.addEventListener('click', closeModal);
-}
 
+  const trailerBtn = document.querySelector('#image-box__image');
+  trailerBtn.addEventListener('click', () => {
+    openTrailer(movie.id);
+  });
+}
+function openTrailer(movieId) {
+  fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos`, options)
+    .then(response => response.json())
+    .then(data => {
+      const trailers = data.results;
+      if (trailers.length > 0) {
+        const trailerKey = trailers[0].key;
+        const trailerUrl = `https://www.youtube.com/watch?v=${trailerKey}`;
+        window.open(trailerUrl, '_blank');
+      } else {
+        Notify.info('Trailer not available.');
+      }
+    })
+    .catch(error => console.log(error));
+}
 const saveToLS = movie => {
   watchedArr.push(movie);
   const jsonMovie = JSON.stringify(watchedArr);
