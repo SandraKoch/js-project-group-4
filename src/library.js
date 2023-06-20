@@ -54,15 +54,12 @@ const loadWatchedFromLS = key => {
   }
 };
 
-const userQueue = document.querySelector('#user-queue-btn');
-const userWatched = document.querySelector('#user-watched-btn');
-
-userQueue.addEventListener('click', () => {
+refs.userQueue.addEventListener('click', () => {
   refs.main.innerHTML = ' ';
   currentType = 'queue';
   loadWatchedFromLS('queue');
 });
-userWatched.addEventListener('click', () => {
+refs.userWatched.addEventListener('click', () => {
   refs.main.innerHTML = ' ';
   currentType = 'watched';
   loadWatchedFromLS('watched');
