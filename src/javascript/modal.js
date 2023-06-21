@@ -1,13 +1,8 @@
-// import './fetchTrendingMovies';
-// import { loadWatchedFromLS } from '../library';
 import { options } from './config';
 import { refs } from './refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const backdrop = document.querySelector('#backdrop');
-// const main = document.querySelector('#main'); to importujemy z refs
-// const watchedBtn = document.querySelector('#watched-button');
-// const queueBtn = document.querySelector('#queue-button');
 
 const openModal = event => {
   if (event.target.nodeName !== 'IMG') {
@@ -22,8 +17,6 @@ const closeModal = () => {
   backdrop.classList.add('is-hidden');
   backdrop.classList.remove('opening-modal');
 };
-
-//is it necessary to create a new fetch ?
 
 function fetchMovieInfo(movieId) {
   return fetch(`https://api.themoviedb.org/3/movie/${movieId}`, options)
@@ -210,12 +203,12 @@ const watchedQueue = (movie, onActionFn) => {
       newArr = arr.filter(film => film.id !== movie.id);
       const jsonMovie = JSON.stringify(newArr);
       localStorage.setItem(key, jsonMovie);
-      Notify.info(`Film removed from yours ${key} list`);
+      Notify.info(`Film removed from your ${key} list`);
     } else {
       const updatedArr = [...arr, movie];
       const jsonMovie = JSON.stringify(updatedArr);
       localStorage.setItem(key, jsonMovie);
-      Notify.success(`Film added to yours ${key} list`);
+      Notify.success(`Film added to your ${key} list`);
     }
 
     if (onActionFn) {
