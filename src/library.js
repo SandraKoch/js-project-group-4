@@ -2,6 +2,7 @@ import './sass/main.scss';
 import { initModal } from './javascript/modal';
 import './javascript/libraryButtons';
 import { refs } from './javascript/refs';
+import './javascript/footer-modal';
 // const main = document.querySelector('#main'); to importujemy z refs
 
 let currentType = 'watched';
