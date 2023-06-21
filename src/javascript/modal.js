@@ -77,11 +77,13 @@ function fillModal(movie) {
     </button>
     <div class="modal-content">
 <div id="image-box" class="image-box">
+  <div id="image-trailer" class="image-trailer">
   <img src="${
     movie.poster_path
       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
       : `https://github.com/SandraKoch/js-project-group-4/blob/main/src/images/no-image-here.png?raw=true`
   }" id="image-box__image" class="image-box__image" />
+  </div>
 </div>
 <div id="movie-info" class="movie-info">
   <h2 id="movie-title" class="movie-title">${movie.title}</h2>
@@ -153,7 +155,7 @@ function fillModal(movie) {
   const closeBtn = document.querySelector('#modal-close-button');
   closeBtn.addEventListener('click', closeModal);
 
-  const trailerBtn = document.querySelector('#image-box__image');
+  const trailerBtn = document.querySelector('#image-trailer');
   trailerBtn.addEventListener('click', () => {
     openTrailer(movie.id);
   });
