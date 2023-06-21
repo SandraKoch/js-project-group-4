@@ -90,10 +90,15 @@
 
   @include desktop {
     padding-left: 10px;
+    gap: 25px;
   }
 }
 
 .image-trailer {
+  transition-property: scale;
+  transform: scale(1);
+  transition: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
   position: relative;
   &::after {
     content: '▶︎';
@@ -131,7 +136,6 @@
     background-image: url(/src/images/no-image-here.png);
     width: 240px;
     height: 357px;
-    border-radius: 5px;
 
     @include tablet {
       margin-bottom: 7px;
