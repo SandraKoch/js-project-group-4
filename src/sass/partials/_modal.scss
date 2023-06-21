@@ -101,11 +101,7 @@
   transition-duration: 250ms;
   position: relative;
   &::after {
-    content: '▶︎';
-    font-size: 40px;
-    padding-top: 10px;
-    padding-left: 20px;
-    color: rgb(139, 138, 138);
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -113,6 +109,17 @@
     height: 100%;
     background: -webkit-linear-gradient(90deg, #00000000 50%, #000000d7 100%);
     cursor: pointer;
+  }
+  &::before {
+    content: '▷';
+    position: absolute;
+    font-size: 40px;
+    color: var(--color-orange);
+    left: 30px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 2;
+    animation: puls 2s linear infinite;
   }
   &:hover {
     transition-property: scale;
@@ -368,5 +375,19 @@
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes puls {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.35);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
